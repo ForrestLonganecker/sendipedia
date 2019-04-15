@@ -1,0 +1,19 @@
+{
+  "name": "sendipedia",
+  "version": "1.0.0",
+  "description": "A wiki for sharing information",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "export NODE ENV=test && jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ForrestLonganecker/sendipedia.git"
+  },
+  "author": "Forrest Longanecker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ForrestLonganecker/sendipedia/issues"
+  },
+  "homepage": "https://github.com/ForrestLonganecker/sendipedia#readme"
+}
