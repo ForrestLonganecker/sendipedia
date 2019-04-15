@@ -21,5 +21,8 @@
     "express": "^4.16.4",
     "jasmine": "^3.4.0",
     "request": "^2.88.0"
+  },
+  "dependencies": {
+    "dotenv": "^7.0.0"
   }
 }
