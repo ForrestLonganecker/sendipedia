@@ -4,7 +4,8 @@
   "description": "A wiki for sharing information",
   "main": "src/server.js",
   "scripts": {
-    "test": "export NODE ENV=test && jasmine"
+    "test": "export NODE ENV=test && jasmine",
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/ForrestLonganecker/sendipedia/issues"
   },
-  "homepage": "https://github.com/ForrestLonganecker/sendipedia#readme"
+  "homepage": "https://github.com/ForrestLonganecker/sendipedia#readme",
+  "devDependencies": {
+    "express": "^4.16.4",
+    "jasmine": "^3.4.0",
+    "request": "^2.88.0"
+  }
 }
