@@ -20,7 +20,6 @@
   "devDependencies": {
     "faker": "^4.1.0",
     "jasmine": "^3.4.0",
-    "morgan": "^1.9.1",
     "request": "^2.88.0"
   },
   "dependencies": {
@@ -32,6 +31,7 @@
     "express-flash": "0.0.2",
     "express-session": "^1.16.1",
     "express-validator": "^5.3.1",
+    "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.9.0",
