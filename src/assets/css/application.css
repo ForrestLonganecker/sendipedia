@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-div {
+  border: 1px solid #000;
+  width: 900px; 
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+}

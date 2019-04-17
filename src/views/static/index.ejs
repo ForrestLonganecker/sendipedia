@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <% include ./partials/head.ejs %>
-    </head>
+  <head>
+    <% include ./partials/head.ejs %>
+  </head>
 
-    <body>
+  <body>
+    <% include ./partials/navbar.ejs %>
 
-        <% include ./partials/navbar.ejs %>
+    <main class="main-container">
+      <header>
+        <h1>~*Sendipedia*~</h1>
+        <p>The place to document mountains and rocks, anything climbing.</p>
+        <a href="/users/signup">Sign up</a>
+      </header>
 
-        <main>
-            <header>
-                <h1>~*Sendipedia*~</h1>
-                <p>The place to document mountains and rocks, anything climbing.</p>
-                <a href="/users/signup">Sign up</a>
-            </header>
+      <section>
+        <section>
+          <h4>Crags</h4>
+          <p>
+            Help document history and other important information about your
+            favorite crag.
+          </p>
+        </section>
 
-            <section>
+        <section>
+          <h4>Sends</h4>
+          <p>Proud of your send last week? So are we, share the stoke!</p>
+        </section>
 
-                <section>
-                    <h4>Crags</h4>
-                    <p>Help document history and other important information about your favorite crag.</p>
-                </section>
-
-                <section>
-                    <h4>Sends</h4>
-                    <p>Proud of your send last week? So are we, share the stoke!</p>
-                </section>
-
-                <section>
-                    <h4>Conservation</h4>
-                    <p>Help us keep the places we love open for everyone. Trail work to activism, spread the word.</p>
-                </section>
-
-            </section>
-
-        </main>
-
-    </body>
-
+        <section>
+          <h4>Conservation</h4>
+          <p>
+            Help us keep the places we love open for everyone. Trail work to
+            activism, spread the word.
+          </p>
+        </section>
+      </section>
+    </main>
+  </body>
 </html>
