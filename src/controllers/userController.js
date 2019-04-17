@@ -1,5 +1,6 @@
 const passport = require("passport");
 const userQueries = require("../db/queries.users.js");
+const emails = require("../assets/sendgrid/emails.js");
 
 module.exports = {
   signup(req, res, next) {
@@ -20,6 +21,7 @@ module.exports = {
         passport.authenticate("local")(req, res, () => {
           req.flash("notice", "You've successfully signed in!");
           res.redirect("/");
+          emails.newUserEmail(newUser);
         });
       }
     });

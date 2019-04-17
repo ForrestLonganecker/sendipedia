@@ -4,7 +4,7 @@
   "description": "A wiki for sharing information",
   "main": "src/server.js",
   "scripts": {
-    "test": "export NODE ENV=test && jasmine",
+    "test": "export NODE_ENV=test && jasmine",
     "start": "node src/server.js"
   },
   "repository": {
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/ForrestLonganecker/sendipedia#readme",
   "devDependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "faker": "^4.1.0",
     "jasmine": "^3.4.0",
     "request": "^2.88.0"
