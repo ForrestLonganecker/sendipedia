@@ -4,8 +4,20 @@
         <div>
             <ul>
                 <li>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </li>
+                <% if(currentUser) { %>   
+                    <li>
+                        <a href="/users/signout">Sign out</a>
+                    </li>
+                <% } else { %>
+                    <li>
+                        <a href="/users/signup">Sign up</a>
+                    </li>
+                    <li>
+                        <a href="/users/signin">Sign in</a>
+                    </li>
+                <% } %>
             </ul>
         </div>
     </div>

@@ -76,4 +76,17 @@ describe('routes : users', () => {
       );
     });
   });
+
+  describe('GET /users/signin', () => {
+    it('should render a view with a sign in form', (done) => {
+      request.get(`${base}signin`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain('Sign in');
+        done();
+      });
+    });
+  });
+
+
+  // end of test suite
 });
