@@ -16,7 +16,7 @@ module.exports = {
     userQueries.createUser(newUser, (err, user) => {
       console.log('ATTEMPTING TO CREATE USER 1');
       if (err) {
-        console.log('ATTEMPTING TO CREATE USER 2 INSIDE IF');
+        console.log('ATTEMPTING TO CREATE USER 2 INSIDE IF', err);
         req.flash("error", err);
         res.redirect("/users/signup");
       } else {

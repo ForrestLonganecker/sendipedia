@@ -15,6 +15,7 @@ module.exports = {
       callback(null, user);
     })
     .catch((err) => {
+      console.log('INSIDE USER QUERY CREATE: ', err);
       callback(err);
     })
   },
