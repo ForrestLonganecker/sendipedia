@@ -1,24 +1,22 @@
-<nav>
-    <div>
-        <a href="/">Sendipedia</a>
-        <div>
-            <ul>
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <% if(currentUser) { %>   
-                    <li>
-                        <a href="/users/signout">Sign out</a>
-                    </li>
-                <% } else { %>
-                    <li>
-                        <a href="/users/signup">Sign up</a>
-                    </li>
-                    <li>
-                        <a href="/users/signin">Sign in</a>
-                    </li>
-                <% } %>
-            </ul>
-        </div>
-    </div>
+<nav class="nav-container">
+  <div class="logo-link">
+    <a href="/">Sendipedia</a>
+  </div>
+  <ul class="nav-list">
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <% if(currentUser) { %>   
+      <li>
+          <a href="/users/signout">Sign out</a>
+      </li>
+  <% } else { %>
+      <li>
+          <a href="/users/signup">Sign up</a>
+      </li>
+      <li>
+          <a href="/users/signin">Sign in</a>
+      </li>
+  <% } %>
+  </ul>
 </nav>
