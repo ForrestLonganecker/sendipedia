@@ -1,20 +1,24 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(214, 207, 194); 
+}
+
+title {
+  display: none;
+}
+
+.logo-link {
+  justify-content: center;
 }
 
 .nav-container {
-  display: flex;
-  justify-content: center;
+  flex-direction: row;
 }
 
-.nav-div {
+.nav-list {
+  flex-direction: row;
+  justify-content: space-around;
   border: 1px solid #000;
-  width: 900px; 
-}
-
-.main-container {
-  display: flex;
-  justify-content: center;
+  width: 900px;
 }
