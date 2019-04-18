@@ -14,7 +14,6 @@ module.exports = {
       passwordConfirmation: req.body.passwordConfirmation
     };
     userQueries.createUser(newUser, (err, user) => {
-      console.log('ATTEMPTING TO CREATE USER 1');
       if (err) {
         req.flash("error", err);
         res.redirect("/users/signup");
@@ -33,11 +32,9 @@ module.exports = {
   signIn(req, res, next){
     passport.authenticate('local')(req, res, () => {
       if(!req.user){
-        console.log('FROM USERCONTROLLER/!USER: ', req.user);
         req.flash('notice', 'Sign in failed. Please try again.');
         res.redirect('/users/signin');
       } else {
-        console.log('FROM USERCONTROLLER/ELSE: ', req.user);
         req.flash('notice', "You've successfully signed in!");
         res.redirect('/');
       }
