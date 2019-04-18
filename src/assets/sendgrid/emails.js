@@ -1,6 +1,6 @@
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
+console.log(process.env.SENDGRID_API_KEY);
 module.exports = {
   newUserEmail(newUser) {
     const message = {

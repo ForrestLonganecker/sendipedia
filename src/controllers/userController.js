@@ -14,16 +14,41 @@ module.exports = {
       passwordConfirmation: req.body.passwordConfirmation
     };
     userQueries.createUser(newUser, (err, user) => {
+      console.log('ATTEMPTING TO CREATE USER 1');
       if (err) {
+        console.log('ATTEMPTING TO CREATE USER 2 INSIDE IF');
         req.flash("error", err);
         res.redirect("/users/signup");
       } else {
+        console.log('ATTEMPTING TO CREATE USER 3 INSIDE ELSE');
         passport.authenticate("local")(req, res, () => {
           req.flash("notice", "You've successfully signed in!");
           res.redirect("/");
+          console.log('ATTEMPTING TO CREATE USER 4 EMAILS');
           emails.newUserEmail(newUser);
         });
       }
     });
-  }
+  },
+  signInForm(req, res, next){
+    res.render('users/signin');
+  },
+  signIn(req, res, next){
+    passport.authenticate('local')(req, res, () => {
+      if(!req.user){
+        console.log('FROM USERCONTROLLER/!USER: ', req.user);
+        req.flash('notice', 'Sign in failed. Please try again.');
+        res.redirect('/users/signin');
+      } else {
+        console.log('FROM USERCONTROLLER/ELSE: ', req.user);
+        req.flash('notice', "You've successfully signed in!");
+        res.redirect('/');
+      }
+    })
+  },
+  signOut(req, res, next){
+    req.logout();
+    req.flash('notice', "You've successfully signed out!");
+    res.redirect('/');
+  },
 };
