@@ -18,7 +18,8 @@ module.exports = {
       title: req.body.title,
       body: req.body.body,
       // currently hard-coding false, switch out for upgraded users
-      private: false
+      private: false,
+      userId: req.body.userId
     };
     wikiQueries.addWiki(newWiki, (err, wiki) => {
       if(err){
