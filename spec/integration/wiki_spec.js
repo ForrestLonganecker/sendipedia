@@ -50,9 +50,20 @@ describe('routes : wikis', () => {
 
   });
 
+  describe('GET /wikis/:id', () => {
+    it('should render a view with the selected wiki', (done) => {
+      request.get(`${base}/${this.wiki.id}`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain('Carver');
+        expect(body).toContain('The moss factory');
+        done();
+      });
+    });
+  });
+
   describe('POST /wikis/create', () => {
     const options = {
-      url:`${base}create`,
+      url:`${base}/create`,
       form: {
         title: 'Ozone',
         body: 'Lothlorien feel',
