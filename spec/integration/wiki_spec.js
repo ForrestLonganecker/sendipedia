@@ -119,5 +119,26 @@ describe('routes : wikis', () => {
     });
   });
 
+  describe('POST /wikis/:id/update', () => {
+    it('should update the topic with the given values', (done) => {
+      const options = {
+        url: `${base}/${this.wiki.id}/update`,
+        form: {
+          title: 'Carver, OR',
+          body: 'Twilight boulders'
+        }
+      };
+
+      request.post(options, (err, res, body) => {
+        expect(err).toBeNull();
+        Wiki.findOne({ where: {id: this.wiki.id }})
+        .then((wiki) => {
+          expect(wiki.title).toBe('Carver, OR');
+          done();
+        });
+      });
+    });
+  });
+
   // end of test suite
 });
