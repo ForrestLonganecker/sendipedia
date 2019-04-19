@@ -19,7 +19,7 @@ module.exports = {
       body: req.body.body,
       // currently hard-coding false, switch out for upgraded users
       private: false,
-      userId: req.body.userId
+      userId: req.user.id
     };
     wikiQueries.addWiki(newWiki, (err, wiki) => {
       if(err){
