@@ -61,6 +61,18 @@ describe('routes : wikis', () => {
     });
   });
 
+  describe('GET /wikis/:id/edit', () => {
+    it('should render a view with an edit topic form', (done) => {
+      request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain('Edit Wiki');
+        expect(body).toContain('Carver');
+        expect(body).toContain('The moss factory');
+        done();
+      });
+    });
+  });
+
   describe('POST /wikis/create', () => {
     const options = {
       url:`${base}/create`,
@@ -88,6 +100,24 @@ describe('routes : wikis', () => {
     });
   });
 
+  describe('POST /wikis/:id/destroy', () => {
+    it('should delete the wiki with the associated ID', (done) => {
+      Wiki.findAll()
+      .then((wikis) => {
+        const wikiCountBeforeDelete = wikis.length;
+        expect(wikiCountBeforeDelete).toBe(1);
+
+        request.post(`${base}/${this.wiki.id}/destroy`, (err, res, body) => {
+          Wiki.findAll()
+          .then((wikis) => {
+            expect(err).toBeNull();
+            expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
+            done();
+          })
+        });
+      });
+    });
+  });
 
   // end of test suite
 });

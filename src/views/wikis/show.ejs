@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="main-container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h1><%= wiki.title %></h1>
+
+      <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
+        <button type="submit">Delete</button>
+      </form>
+
+      <p><%= wiki.body %></p>
+    </main>
+  </body>
+</html>
