@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="main-container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h1>New Wiki</h1>
+
+      <form action="/wikis/create" method="post">
+        <div>
+          <label for="title">Wiki title</label>
+          <input type="text" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
+        </div>  
+        <div>
+          <label for="body">Wiki body</label>
+          <input type="text" name="body" aria-describedby="bodyHelp" placeholder="Enter Body">
+        </div>  
+        <button type="submit">Submit</button>
+      </form>
+
+    </main>
+  </body>
+</html>
