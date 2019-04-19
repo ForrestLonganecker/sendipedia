@@ -63,7 +63,7 @@ describe('routes : wikis', () => {
 
   describe('GET /wikis/:id/edit', () => {
     it('should render a view with an edit topic form', (done) => {
-      request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
+      request.get(`${base}/${this.wiki.id}/edit`, (err, res, body) => {
         expect(err).toBeNull();
         expect(body).toContain('Edit Wiki');
         expect(body).toContain('Carver');
