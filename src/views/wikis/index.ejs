@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="main-container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h1>Wikis</h1>
+
+      <ul>
+        <% wikis.forEach((wiki) => { %>
+          <li>
+            <a href="/wikis/<%= wiki.id%>"><%= wiki.title %></a>
+          </li>
+        <% }) %>
+      </ul>
+      
+    </main>
+  </body>
+</html>
