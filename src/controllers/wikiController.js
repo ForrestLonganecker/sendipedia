@@ -42,7 +42,7 @@ module.exports = {
       if(err){
         res.redirect(500, `/wikis/${wiki.id}`);
       } else {
-        res.redirect(303, '/topics');
+        res.redirect(303, '/wikis');
       }
     });
   },
@@ -60,7 +60,7 @@ module.exports = {
       if(err || wiki == null){
         res.redirect(404, `/wikis/${req.params.id}/edit`);
       } else {
-        res.redirect(`/topics/${topic.id}`);
+        res.redirect(`/wikis/${wiki.id}`);
       }
     });
   },
