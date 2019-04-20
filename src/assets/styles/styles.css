@@ -14,6 +14,7 @@ title {
 
 .nav-container {
   flex-direction: row;
+  background-color: rgb(144, 200, 223);
 }
 
 .nav-list {
@@ -21,4 +22,17 @@ title {
   justify-content: space-around;
   border: 1px solid #000;
   width: 900px;
+}
+
+.header-container {
+  text-align: center;
+}
+
+.sign-in-out-container {
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.index-info-container {
+  text-align: center;
 }
