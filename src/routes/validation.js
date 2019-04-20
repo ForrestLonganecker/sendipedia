@@ -27,5 +27,20 @@ module.exports = {
     } else {
       return next();
     }
+  },
+  validateWiki(req, res, next) {
+    if(req.method === 'POST') {
+      req.checkBody('title', 'must be at least 5 characters').isLength({min: 5});
+      req.checkBody('body', 'must be at least 10 characters in length').isLength({min: 10});
+      req.checkBody('private', 'must be a boolean').isBoolean();
+      req.checkBody('userId', 'must have assigned userId').isInt();
+    }
+    const errors = req.validationErrors();
+    if(errors) {
+      req.flash('error', errors);
+      return res.redirect(req.headers.referer);
+    } else {
+      return next();
+    }
   }
 }
