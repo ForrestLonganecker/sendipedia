@@ -14,10 +14,15 @@
       
       <a href="/wikis">Back</a>
 
-      <a href="/wikis/<%= wiki.id %>/edit">Edit</a>
-      <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
-        <button type="submit">Delete</button>
-      </form>
+      <% if(currentUser){ %>
+        <a href="/wikis/<%= wiki.id %>/edit">Edit</a>
+      <% } %>
+
+      <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(wiki.userId)) { %>
+        <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
+          <button type="submit">Delete</button>
+        </form>
+      <% } %>
 
       <p><%= wiki.body %></p>
     </main>
