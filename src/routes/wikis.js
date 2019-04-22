@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const helper = require('../auth/helpers');
 
 const wikiController = require('../controllers/wikiController');
 
