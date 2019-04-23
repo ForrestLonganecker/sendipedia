@@ -1,5 +1,5 @@
-const ApplicationPolicy = reqiuire('./application');
+const ApplicationPolicy = require('./application');
 
 module.exports = class WikiPolicy extends ApplicationPolicy {
-  
+
 }

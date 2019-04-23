@@ -330,6 +330,8 @@ describe('routes : wikis', () => {
         }
       },
         (err, res, body) => {
+          // console.log('{BEFOREEACH} RES: ', res);
+          // console.log('{BEFOREEACH} CURRENTUSER: ', currentUser); 
           done();
         }
       );
@@ -348,8 +350,9 @@ describe('routes : wikis', () => {
     });
     
     describe('GET /wikis/new', () => {
-      it('should render a new wiki form', (done) =>  {
+      fit('should render a new wiki form', (done) =>  {
         request.get(`${base}/new`, (err, res, body) => {
+          // console.log('{SPEC} 1: ', res);
           expect(err).toBeNull();
           expect(body).toContain('New Wiki');
           done();

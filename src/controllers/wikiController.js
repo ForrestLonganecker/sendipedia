@@ -12,13 +12,14 @@ module.exports = {
     })
   },
   new(req, res, next){
+    console.log('{CONTROLLER} INSIDE NEW ' );
     const authorized = new Authorizer(req.user).new();
 
     if(authorized){
       res.render('wikis/new');
     } else {
       req.flash('notice', 'You are not authorized to do that.')
-      res.redirect('./wikis');
+      res.redirect('/wikis');
     }
   },
   create(req, res, next){

@@ -1,6 +1,6 @@
 module.exports = {
   fakeIt(app){
-    let role, id, email;
+    let role, id, email, name;
   
     function middleware(req, res, next){
       role = req.body.role || role;
@@ -19,9 +19,11 @@ module.exports = {
         delete req.user;
       }
   
+      console.log('{MOCK-AUTH} req.user: ', req.user);
       if( next ){ next() }
     }
-    
+
+
     function route(req, res){
       res.redirect('/')
     }
