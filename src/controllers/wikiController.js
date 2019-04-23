@@ -66,7 +66,7 @@ module.exports = {
   edit(req, res, next){
     wikiQueries.getWiki(req.params.id, (err, wiki) => {
       if(err || wiki == null){
-        res.redirect(404, '/');
+        res.redirect(404, `/`);
       } else {
         const authorized = new Authorizer(req.user, wiki).edit();
 

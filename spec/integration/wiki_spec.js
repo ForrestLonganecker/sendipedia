@@ -552,12 +552,11 @@ describe('routes : wikis', () => {
     });
   
     describe('GET /wikis/:id/edit', () => {
-      fit('should redirect to wiki/show', (done) => {
+      it('should not render a view with an edit form', (done) => {
         request.get(`${base}/${this.wiki.id}/edit`, (err, res, body) => {
           expect(err).toBeNull();
           expect(body).not.toContain('Edit Wiki');
           expect(body).toContain('Carver');
-          expect(body).toContain('The moss factory');
           done();
         });
       });
@@ -571,21 +570,20 @@ describe('routes : wikis', () => {
             title: 'Ozone',
             body: 'Lothlorien feel',
             private: false,
-            userId: this.user.id
           }
         };
   
         request.post(options, (err, res, body) => {
-          Wiki.findOne({where: {title: 'Ozone'}})
+          Wiki.findOne({where:  {title: 'Ozone'}})
           .then((wiki) => {
-            expect(wiki.length).toBe(0);
+            expect(wiki).toBeNull();
             done();
           })
           .catch((err) => {
             console.log(err);
             done();
           });
-        })
+        });
       });
       
     });
