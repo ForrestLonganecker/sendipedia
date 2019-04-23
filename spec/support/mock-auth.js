@@ -19,7 +19,6 @@ module.exports = {
         delete req.user;
       }
   
-      console.log('{MOCK-AUTH} req.user: ', req.user);
       if( next ){ next() }
     }
 

@@ -323,18 +323,31 @@ describe('routes : wikis', () => {
 
   describe('standard user performing CRUD actions on Wiki', () => {
     beforeEach((done) => {
-      request.get({
-        url: 'http://localhost:3000/auth/fake',
-        form: {
-          role: 'standard'
-        }
-      },
-        (err, res, body) => {
-          // console.log('{BEFOREEACH} RES: ', res);
-          // console.log('{BEFOREEACH} CURRENTUSER: ', currentUser); 
-          done();
-        }
-      );
+      this.activeUser;
+
+      User.create({
+        name: 'Rocky Limber',
+        email: 'rocky@climb.com',
+        password: '123456',
+        role: 'standard'
+      })
+      .then((user) => {
+        this.activeUser = user;
+
+        request.get({
+          url: 'http://localhost:3000/auth/fake',
+          form: {
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            userId: user.id
+          }
+        }, 
+          (err, res, body) => {
+            done();
+          }
+        );
+      });
     });
 
     describe('GET /wikis', () => {
@@ -350,9 +363,8 @@ describe('routes : wikis', () => {
     });
     
     describe('GET /wikis/new', () => {
-      fit('should render a new wiki form', (done) =>  {
+      it('should render a new wiki form', (done) =>  {
         request.get(`${base}/new`, (err, res, body) => {
-          // console.log('{SPEC} 1: ', res);
           expect(err).toBeNull();
           expect(body).toContain('New Wiki');
           done();
@@ -414,7 +426,7 @@ describe('routes : wikis', () => {
     });
   
     describe('POST /wikis/:id/destroy', () => {
-      it('should delete the wiki with the associated ID', (done) => {
+      it('should not delete the wiki if not the owner', (done) => {
         Wiki.findAll()
         .then((wikis) => {
           const wikiCountBeforeDelete = wikis.length;
@@ -424,10 +436,42 @@ describe('routes : wikis', () => {
             Wiki.findAll()
             .then((wikis) => {
               expect(err).toBeNull();
-              expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
+              expect(wikis.length).toBe(wikiCountBeforeDelete);
               done();
             })
           });
+        });
+      });
+
+      it('should delete the wiki if owner', (done) => {
+        this.activeWiki;
+        Wiki.create({
+          title: 'something',
+          body: 'a body that will be deleted',
+          private: false,
+          userId: this.activeUser.id
+        })
+        .then((wiki) => {
+          this.activeWiki = wiki;
+          
+          Wiki.findAll()
+          .then((wikis) => {
+            const wikiCountBeforeDelete = wikis.length;
+            expect(wikiCountBeforeDelete).toBe(2);
+    
+            request.post(`${base}/${this.activeWiki.id}/destroy`, (err, res, body) => {
+              Wiki.findAll()
+              .then((wikis) => {
+                expect(err).toBeNull();
+                expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
+                done();
+              })
+            });
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
         });
       });
     });
@@ -443,6 +487,7 @@ describe('routes : wikis', () => {
         };
   
         request.post(options, (err, res, body) => {
+          console.log(body);
           expect(err).toBeNull();
           Wiki.findOne({ where: {id: this.wiki.id }})
           .then((wiki) => {
@@ -507,7 +552,7 @@ describe('routes : wikis', () => {
     });
   
     describe('GET /wikis/:id/edit', () => {
-      it('should redirect to wiki/show', (done) => {
+      fit('should redirect to wiki/show', (done) => {
         request.get(`${base}/${this.wiki.id}/edit`, (err, res, body) => {
           expect(err).toBeNull();
           expect(body).not.toContain('Edit Wiki');

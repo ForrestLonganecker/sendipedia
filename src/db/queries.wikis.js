@@ -54,7 +54,7 @@ module.exports = {
     });
   },
   updateWiki(req, updatedWiki, callback){
-    return Wiki.findByPk(id)
+    return Wiki.findByPk(req.params.id)
     .then((wiki) => {
       if(!wiki){
         return callback('Wiki not found');
