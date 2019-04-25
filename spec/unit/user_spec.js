@@ -69,6 +69,6 @@ describe('User', () => {
     });
   });
 
-
-
+  
+// END OF TEST SUITE
 });

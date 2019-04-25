@@ -18,4 +18,14 @@ module.exports = {
       callback(err);
     })
   },
+  promoteUser(userId, callback){
+    return User.update(
+      {role: 'premium'},
+      {where: {id: userId}}
+    )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch(next)
+  }
 };

@@ -9,4 +9,7 @@ router.get("/users/signin", userController.signInForm);
 router.post("/users/signin", validation.validateUserSignin, userController.signIn);
 router.post("/users", validation.validateUsers, userController.create);
 
+router.get('/users/upgrade', userController.upgradeForm);
+router.post('/users/promote', userController.promoteUser);
+
 module.exports = router;

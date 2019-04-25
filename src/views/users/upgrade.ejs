@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+
+    <% include ../static/partials/navbar.ejs %>
+
+    <main>
+
+      <% include ../static/partials/messages.ejs %>
+
+      <h1>Upgrade to premium account</h1>
+
+      <form action="/users/promote" method="post">
+
+        <div>
+          <label for="Premium">Premium</label>
+          <button type="submit">Upgrade account</button>
+        </div>
+
+      </form>
+    </main>
+  </body>
+</html>

@@ -87,6 +87,57 @@ describe('routes : users', () => {
     });
   });
 
+  describe('standard user actions', () => {
+    beforeEach((done) => {
+      this.activeUser;
+
+      User.create({
+        name: 'Rocky Limber',
+        email: 'rocky@climb.com',
+        password: '123456',
+        role: 'standard'
+      })
+      .then((user) => {
+        this.activeUser = user;
+
+        request.get({
+          url: 'http://localhost:3000/auth/fake',
+          form: {
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            userId: user.id
+          }
+        }, 
+          (err, res, body) => {
+            done();
+          }
+        );
+      });
+    });
+    
+
+    describe('GET /users/upgrade', () => {
+      fit('should render a view with an upgrade form', (done) => {
+        request.get(`${base}upgrade`, (err, res, body) => {
+          expect(res.statusCode).toBe(200);
+          expect(err).toBeNull();
+          expect(body).toContain('Upgrade to premium account')
+          done();
+        });
+      });
+    });
+
+    describe('PUT /users/promote', () => {
+      it('should promote the user to premium and redirect to homepage', (done) => {
+        // promote role and redirect
+      })
+    })
+
+    // END OF STANDARD SUITE
+  })
+
+
 
   // end of test suite
 });

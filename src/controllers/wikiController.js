@@ -12,7 +12,6 @@ module.exports = {
     })
   },
   new(req, res, next){
-    console.log('{CONTROLLER} INSIDE NEW ' );
     const authorized = new Authorizer(req.user).new();
 
     if(authorized){
