@@ -35,11 +35,6 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.isOwner = function(userId) {
     return this.id === userId;
   };
-  // User.prototype.promoteUser = function(userId) {
-  //   console.log('{MODEL} INSIDE PROMOTEUSER() 1: ', this.role);
-  //   this.setDataValue('role', 'premium');
-  //   console.log('{MODEL} INSIDE PROMOTEUSER() 2: ', this.role);
-  // }
   
   return User;
 };
