@@ -54,7 +54,7 @@ module.exports = {
       userQueries.promoteUser(req, (err, user) => {
         if(err){
           req.flash('error', err);
-          res.redirect('users/promote');
+          res.redirect('users/upgrade');
         } else {
           req.flash('notice', "You've successfully upgraded your account to premium!");
           res.redirect('/');
@@ -62,6 +62,22 @@ module.exports = {
       });
     } else {
       req.flash('notice', 'You are not a standard memeber so cannot be upgraded to premium');
+      res.redirect('/');
+    }
+  },
+  demoteUser(req, res, next){
+    if(req.user.role === 'premium'){
+      userQueries.demoteUser(req, (err, user) => {
+        if(err){
+          req.flash('error', err);
+          res.redirect('users/upgrade');
+        } else {
+          req.flash('notice', "You've successfully downgraded your account to standard");
+          res.redirect('/');
+        }
+      });
+    } else {
+      req.flash('notice', 'You are not a premium memeber so cannot be downgraded to standard');
       res.redirect('/');
     }
   },

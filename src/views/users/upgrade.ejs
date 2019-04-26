@@ -11,13 +11,24 @@
 
       <% include ../static/partials/messages.ejs %>
 
-      <h1>Upgrade to premium account</h1>
+      <h1>Upgrade to a Premium account</h1>
 
       <form action="/users/promote" method="post">
 
         <div>
-          <label for="Premium">Premium</label>
+          <label for="premium">Premium</label>
           <button type="submit">Upgrade account</button>
+        </div>
+
+      </form>
+
+      <h2>Downgrade your account to Standard</h2>
+
+      <form action="/users/demote" method="post">
+
+        <div>
+          <label for="standard">Standard</label>
+          <button type="submit">Downgrade account</button>
         </div>
 
       </form>

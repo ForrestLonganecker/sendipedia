@@ -123,7 +123,8 @@ describe('routes : users', () => {
         request.get(`${base}upgrade`, (err, res, body) => {
           expect(res.statusCode).toBe(200);
           expect(err).toBeNull();
-          expect(body).toContain('Upgrade to premium account')
+          expect(body).toContain('Upgrade to a Premium account')
+          expect(body).toContain('Downgrade your account to Standard')
           done();
         });
       });
@@ -137,6 +138,24 @@ describe('routes : users', () => {
             expect(err).toBeNull();
             expect(user.name).toBe('Rocky Limber');
             expect(user.role).toBe('premium');
+            done();
+          })
+          .catch((err) => {
+            console.log(err);
+            done();
+          });
+        });
+      });
+    });
+
+    describe('POST /users/demote', () => {
+      it('should promote the user to premium and redirect to homepage', (done) => {
+        request.post(`${base}demote`, (err, res, body) => {
+          User.findByPk(this.activeUser.id)
+          .then((user) => {
+            expect(err).toBeNull();
+            expect(user.name).toBe('Rocky Limber');
+            expect(user.role).toBe('standard');
             done();
           })
           .catch((err) => {
