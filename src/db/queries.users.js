@@ -18,14 +18,21 @@ module.exports = {
       callback(err);
     })
   },
-  promoteUser(userId, callback){
+  promoteUser(req, callback){
+    console.log('{QUERY} 1 BEFORE ALL: ', req.user.dataValues);
+      User.findByPk(req.user.id)
+      .then((user) =>{
+        console.log('{QUERY} 2 FINDBYPK', user.dataValues);
+      })
     return User.update(
       {role: 'premium'},
-      {where: {id: userId}}
+      {where: {id: req.user.id}}
     )
-    .then((res) => {
-      console.log(res);
+    .then((user) => {
+      callback(null, user);
     })
-    .catch(next)
-  }
+    .catch((err) => {
+      callback(err);
+    })
+  },
 };

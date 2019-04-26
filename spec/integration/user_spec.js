@@ -88,6 +88,7 @@ describe('routes : users', () => {
   });
 
   describe('standard user actions', () => {
+
     beforeEach((done) => {
       this.activeUser;
 
@@ -118,7 +119,7 @@ describe('routes : users', () => {
     
 
     describe('GET /users/upgrade', () => {
-      fit('should render a view with an upgrade form', (done) => {
+      it('should render a view with an upgrade form', (done) => {
         request.get(`${base}upgrade`, (err, res, body) => {
           expect(res.statusCode).toBe(200);
           expect(err).toBeNull();
@@ -128,11 +129,23 @@ describe('routes : users', () => {
       });
     });
 
-    describe('PUT /users/promote', () => {
+    describe('POST /users/promote', () => {
       it('should promote the user to premium and redirect to homepage', (done) => {
-        // promote role and redirect
-      })
-    })
+        request.post(`${base}promote`, (err, res, body) => {
+          User.findByPk(this.activeUser.id)
+          .then((user) => {
+            expect(err).toBeNull();
+            expect(user.name).toBe('Rocky Limber');
+            expect(user.role).toBe('premium');
+            done();
+          })
+          .catch((err) => {
+            console.log(err);
+            done();
+          });
+        });
+      });
+    });
 
     // END OF STANDARD SUITE
   })
