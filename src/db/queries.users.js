@@ -19,17 +19,12 @@ module.exports = {
     })
   },
   promoteUser(req, callback){
-    console.log('{QUERY} 1 BEFORE ALL: ', req.user.dataValues);
-      User.findByPk(req.user.id)
-      .then((user) =>{
-        console.log('{QUERY} 2 FINDBYPK', user.dataValues);
-      })
     return User.update(
       {role: 'premium'},
       {where: {id: req.user.id}}
     )
-    .then((user) => {
-      callback(null, user);
+    .then((updatedRows) => {
+      callback(null, updatedRows);
     })
     .catch((err) => {
       callback(err);

@@ -53,11 +53,9 @@ module.exports = {
     if(req.user.role === 'standard'){
       userQueries.promoteUser(req, (err, user) => {
         if(err){
-          console.log('{CONTROLLER} 1 IF/ERR: ', err);
           req.flash('error', err);
           res.redirect('users/promote');
         } else {
-          console.log('{CONTROLLER} 2 ELSE: ', err, user);
           req.flash('notice', "You've successfully upgraded your account to premium!");
           res.redirect('/');
         }
