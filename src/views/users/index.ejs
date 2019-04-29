@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="main-container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h1><%= result.user.name %></h1>
+
+      <a href="/users/<%= result.user.id %>/upgrade">Upgrade account</a>
+    </main>
+  </body>
+</html>

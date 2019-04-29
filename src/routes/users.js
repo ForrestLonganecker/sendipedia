@@ -9,7 +9,9 @@ router.get("/users/signin", userController.signInForm);
 router.post("/users/signin", validation.validateUserSignin, userController.signIn);
 router.post("/users", validation.validateUsers, userController.create);
 
-router.get('/users/upgrade', userController.upgradeForm);
+router.get('/users/:id', userController.show);
+router.get('/users/:id/upgrade', userController.upgradeForm);
+router.get('/users/:id/stripe', userController.stripeForm);
 router.post('/users/promote', userController.promoteUser);
 router.post('/users/demote', userController.demoteUser);
 

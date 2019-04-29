@@ -48,29 +48,25 @@ module.exports = {
     req.flash('notice', "You've successfully signed out!");
     res.redirect('/');
   },
+  show(req, res, next){
+    userQueries.getUser(req.params.id, (err, result) => {
+      if(err || result.user === undefined){
+        req.flash('notice', 'No user found with that ID.');
+        res.redirect('/');
+      } else {
+        res.render('users/index', {result});
+      }
+    });
+  },
   upgradeForm(req, res, next){
     res.render('users/upgrade');
   },
-  chargeUser(req, res, next){ 
-    (async () => {
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [{
-          name: 'Premium account',
-          description: 'upgraded user from standard to premium account',
-          amount: 1500,
-          currency: 'usd',
-          quantity: 1
-        }],
-        success_url: '/',
-        cancel_url: '/',
-      });
-    }) ();
-
+  stripeForm(req, res, next){
+    res.render('users/stripe')
   },
   promoteUser(req, res, next){
     //insert stripe logic here
-
+    
     if(req.user.role === 'standard'){
       userQueries.promoteUser(req, (err, user) => {
         if(err){
@@ -103,3 +99,21 @@ module.exports = {
     }
   },
 };
+
+// chargeUser(req, res, next){ 
+//   (async () => {
+//     const session = await stripe.checkout.sessions.create({
+//       payment_method_types: ['card'],
+//       line_items: [{
+//         name: 'Premium account',
+//         description: 'upgraded user from standard to premium account',
+//         amount: 1500,
+//         currency: 'usd',
+//         quantity: 1
+//       }],
+//       success_url: '/',
+//       cancel_url: '/',
+//     });
+//   }) ();
+
+// },

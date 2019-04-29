@@ -87,7 +87,7 @@ describe('routes : users', () => {
     });
   });
 
-  describe('standard user actions', () => {
+  describe('standard signed-in user actions', () => {
 
     beforeEach((done) => {
       this.activeUser;
@@ -117,14 +117,36 @@ describe('routes : users', () => {
       });
     });
     
+    describe('GET /users/:id', () => {
+      it('should render a view that shows activeUser account information', (done) => {
+        request.get(`${base}${this.activeUser.id}`, (err, res, body) => {
+          expect(res.statusCode).toBe(200);
+          expect(err).toBeNull();
+          expect(body).toContain(this.activeUser.name);
+          expect(body).toContain('Upgrade account');
+          done();
+        })
+      })
+    })
 
-    describe('GET /users/upgrade', () => {
+    describe('GET /users/:id/upgrade', () => {
       it('should render a view with an upgrade form', (done) => {
-        request.get(`${base}upgrade`, (err, res, body) => {
+        request.get(`${base}${this.activeUser.id}/upgrade`, (err, res, body) => {
           expect(res.statusCode).toBe(200);
           expect(err).toBeNull();
           expect(body).toContain('Upgrade to a Premium account')
           expect(body).toContain('Downgrade your account to Standard')
+          done();
+        });
+      });
+    });
+
+    describe('GET /users/:id/stripe', () => {
+      fit('should render the stripe payment form', (done) => {
+        request.get(`${base}${this.activeUser.id}/stripe`, (err, res, body) => {
+          expect(res.statusCode).toBe(200);
+          expect(err).toBeNull();
+          expect(body).toContain('');
           done();
         });
       });

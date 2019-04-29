@@ -13,17 +13,19 @@
 
       <h1>Upgrade to a Premium account</h1>
 
-      <form action="/users/promote" method="post">
+      <a href="/users/<%= currentUser.id %>/stripe">
+        <button type="submit">Upgrade account</button>
+      </a>
+
+      <!-- <form action="/users/<%= currentUser.id %>/stripe" method="post">
 
         <div>
           <label for="premium">Premium</label>
           <button type="submit">Upgrade account</button>
         </div>
 
-      </form>
-      
-      <% include ../static/partials/stripe.ejs %>
-      
+      </form> -->
+            
       <h2>Downgrade your account to Standard</h2>
 
       <form action="/users/demote" method="post">

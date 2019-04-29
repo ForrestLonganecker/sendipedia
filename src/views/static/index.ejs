@@ -16,6 +16,7 @@
         <div class="sign-in-out-container">
           <% if(currentUser) { %>   
             <a href="/users/signout">Sign out</a>
+            <a href="/users/<%= currentUser.id %>">Account</a>
           <% } else { %>
             <a href="/users/signup">Sign up</a>
             <a href="/users/signin">Sign in</a>

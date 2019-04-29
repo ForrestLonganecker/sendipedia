@@ -18,6 +18,22 @@ module.exports = {
       callback(err);
     })
   },
+  getUser(id, callback){
+    let result = {};
+    User.findByPk(id)
+    .then((user) => {
+      if(!user) {
+        callback(404);
+      } else {
+        result["user"] = user;
+        // can insert scope for associated items here
+        callback(null, result);
+      }
+    })
+    .catch((err) => {
+      callback(err);
+    });
+  },
   promoteUser(req, callback){
     return User.update(
       {role: 'premium'},
