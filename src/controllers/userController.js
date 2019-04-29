@@ -101,7 +101,7 @@ module.exports = {
   chargeUser(req, res, next){
     const token = req.body.stripeToken; // Using Express
 
-    console.log('{USER CONTROLLER} 1: ', token);
+    console.log('{USER CONTROLLER} 1: ', req);
 
     (async () => {
       const charge = await stripe.charges.create({
@@ -110,7 +110,10 @@ module.exports = {
         description: 'Premium account upgrade',
         source: token,
       });
-    })();
+    })()
+    .catch((err) => {
+      console.log('{USER CONTROLLER} 2: ', err);
+    });
   },
 };
 
