@@ -1,17 +1,58 @@
-var stripe = require("stripe")("sk_test_5YsSBhEjLKeDs389WK6CKsVs00WlDseaNZ");
+const stripe = Stripe(process.env.stripeSecretKey);
+const elements = stripe.elements();
 
-(async () => {
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [{
-      name: 'Premium upgrade',
-      description: 'upgrade from standard to premium',
-      // images: ['https://example.com/t-shirt.png'],
-      amount: 1500,
-      currency: 'usd',
-      quantity: 1,
-    }],
-    success_url: '/',
-    cancel_url: '/',
-  });
-})();
+const style = {
+  base: {
+    color: '#32325d',
+    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontSmoothing: 'antialiased',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#aab7c4'
+    }
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
+};
+
+const card = elements.create('card', {style});
+
+card.mount('#card-element');
+
+card.addEventListener('charge', ({error}) => {
+  const displayError = document.getElementById('card-errors');
+  if(error){
+    displayError.textContent = error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+const form = document.getElementById('payment-form');
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  
+  const {toket, error} = await stripe.createToken(card);
+
+  if(error){
+    const errorElement = document.getElementById('card-errors');
+    errorElement.textContent = error.message;
+  } else {
+    stripeTokenHandler(token);
+  }
+});
+
+const stripeTokenHandler = (token) => {
+
+  const form = document.getElementById('payment-form');
+  const hiddenInput = document.createElement('input');
+
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+
+  form.appendChild(hiddenInput);
+  form.submit();
+};

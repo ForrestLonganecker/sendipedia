@@ -12,6 +12,7 @@ router.post("/users", validation.validateUsers, userController.create);
 router.get('/users/:id', userController.show);
 router.get('/users/:id/upgrade', userController.upgradeForm);
 router.get('/users/:id/stripe', userController.stripeForm);
+router.post('/users/:id/charge', userController.chargeUser);
 router.post('/users/promote', userController.promoteUser);
 router.post('/users/demote', userController.demoteUser);
 

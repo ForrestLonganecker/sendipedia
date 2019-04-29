@@ -142,7 +142,7 @@ describe('routes : users', () => {
     });
 
     describe('GET /users/:id/stripe', () => {
-      fit('should render the stripe payment form', (done) => {
+      it('should render the stripe payment form', (done) => {
         request.get(`${base}${this.activeUser.id}/stripe`, (err, res, body) => {
           expect(res.statusCode).toBe(200);
           expect(err).toBeNull();
@@ -151,6 +151,23 @@ describe('routes : users', () => {
         });
       });
     });
+
+    describe('POST /users/:id/charge', () => {
+      it('should charge, upgrade and redirect to account page', () => {
+        request.post(`${base}${this.activeUser.id}/charge`, (err, res, body) => {
+          expect(err).toBeNull();
+          expect(body).toContain('premium');
+          expect(body).toContain(this.activeUser.name);
+          User.findByPk(this.activeUser.id)
+          .then((user) => {
+            expect(err).toBeNull();
+            expect(user.role).toBe('premium');
+            expect(user.name).toBe('Rocky Limber');
+          })
+        })
+
+      })
+    })
 
     describe('POST /users/promote', () => {
       it('should promote the user to premium and redirect to homepage', (done) => {

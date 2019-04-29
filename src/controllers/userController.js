@@ -2,7 +2,7 @@ const passport = require("passport");
 const userQueries = require("../db/queries.users.js");
 const emails = require("../assets/sendgrid/emails.js");
 
-const stripe = require('stripe')(process.env.stripeTestAPI);
+const stripe = require('stripe')(process.env.stripeSecretKey);
 
 module.exports = {
   signup(req, res, next) {
@@ -97,6 +97,18 @@ module.exports = {
       req.flash('notice', 'You are not a premium memeber so cannot be downgraded to standard');
       res.redirect('/');
     }
+  },
+  chargeUser(req, res, next){
+    const token = req.body.stripeToken; // Using Express
+
+    (async () => {
+      const charge = await stripe.charges.create({
+        amount: 1500,
+        currency: 'usd',
+        description: 'Premium account upgrade',
+        source: token,
+      });
+    })();
   },
 };
 

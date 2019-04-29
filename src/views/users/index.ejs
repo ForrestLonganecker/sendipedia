@@ -11,6 +11,8 @@
       <% include ../static/partials/messages.ejs %>
 
       <h1><%= result.user.name %></h1>
+      <h2>current account status:</h2>
+      <h3><%= result.user.role %></h3>
 
       <a href="/users/<%= result.user.id %>/upgrade">Upgrade account</a>
     </main>
