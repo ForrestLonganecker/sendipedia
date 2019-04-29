@@ -101,6 +101,8 @@ module.exports = {
   chargeUser(req, res, next){
     const token = req.body.stripeToken; // Using Express
 
+    console.log('{USER CONTROLLER} 1: ', token);
+
     (async () => {
       const charge = await stripe.charges.create({
         amount: 1500,

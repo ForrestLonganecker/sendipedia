@@ -21,27 +21,27 @@ const card = elements.create('card', {style});
 
 card.mount('#card-element');
 
-card.addEventListener('charge', ({error}) => {
-  const displayError = document.getElementById('card-errors');
-  if(error){
-    displayError.textContent = error.message;
+card.addEventListener('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if(event.error){
+    displayError.textContent = event.error.message;
   } else {
     displayError.textContent = '';
   }
 });
 
-const form = document.getElementById('payment-form');
-form.addEventListener('submit', async (event) => {
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
   event.preventDefault();
-  
-  const {toket, error} = await stripe.createToken(card);
 
-  if(error){
-    const errorElement = document.getElementById('card-errors');
-    errorElement.textContent = error.message;
-  } else {
-    stripeTokenHandler(token);
-  }
+  stripe.createToken(card).then(function(result) {
+    if(result.error){
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      stripeTokenHandler(result.token)
+    }
+  })
 });
 
 const stripeTokenHandler = (token) => {
