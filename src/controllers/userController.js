@@ -2,6 +2,8 @@ const passport = require("passport");
 const userQueries = require("../db/queries.users.js");
 const emails = require("../assets/sendgrid/emails.js");
 
+const stripe = require('stripe')(process.env.stripeTestAPI);
+
 module.exports = {
   signup(req, res, next) {
     res.render("users/signup");
@@ -49,7 +51,26 @@ module.exports = {
   upgradeForm(req, res, next){
     res.render('users/upgrade');
   },
+  chargeUser(req, res, next){ 
+    (async () => {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [{
+          name: 'Premium account',
+          description: 'upgraded user from standard to premium account',
+          amount: 1500,
+          currency: 'usd',
+          quantity: 1
+        }],
+        success_url: '/',
+        cancel_url: '/',
+      });
+    }) ();
+
+  },
   promoteUser(req, res, next){
+    //insert stripe logic here
+
     if(req.user.role === 'standard'){
       userQueries.promoteUser(req, (err, user) => {
         if(err){
