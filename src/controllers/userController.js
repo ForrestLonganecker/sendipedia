@@ -74,7 +74,7 @@ module.exports = {
           res.redirect('users/upgrade');
         } else {
           req.flash('notice', "You've successfully upgraded your account to premium!");
-          res.redirect('/');
+          res.redirect(`/users/${req.user.id}`);
         }
       });
     } else {
@@ -90,12 +90,12 @@ module.exports = {
           res.redirect('users/upgrade');
         } else {
           req.flash('notice', "You've successfully downgraded your account to standard");
-          res.redirect('/');
+          res.redirect(`/users/${req.user.id}`);
         }
       });
     } else {
       req.flash('notice', 'You are not a premium memeber so cannot be downgraded to standard');
-      res.redirect('/');
+      res.redirect(`/`);
     }
   },
   chargeUser(req, res, next){
@@ -119,7 +119,7 @@ module.exports = {
           res.redirect('users/upgrade');
         } else {
           req.flash('notice', "You've successfully upgraded your account to premium!");
-          res.redirect('/');
+          res.redirect(`/users/${req.user.id}`);
         }
       });
     }) 

@@ -13,6 +13,9 @@
     </li>
     <% if(currentUser) { %>   
       <li>
+        <a href="/users/<%= currentUser.id %>">Account</a>
+      </li>
+      <li>
           <a href="/users/signout">Sign out</a>
       </li>
   <% } else { %>
