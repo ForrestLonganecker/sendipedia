@@ -366,6 +366,7 @@ describe('routes : wikis', () => {
       it('should render a new wiki form', (done) =>  {
         request.get(`${base}/new`, (err, res, body) => {
           expect(err).toBeNull();
+          expect(body).not.toContain('Private');
           expect(body).toContain('New Wiki');
           done();
         });
@@ -404,7 +405,7 @@ describe('routes : wikis', () => {
             title: 'Ozone',
             body: 'Lothlorien feel',
             private: false,
-            userId: this.user.id
+            userId: this.activeUser.id
           }
         };
   
@@ -421,6 +422,30 @@ describe('routes : wikis', () => {
             done();
           });
         })
+      });
+
+      it('should not create a private wiki', (done) => {
+        const options = {
+          url:`${base}/create`,
+          form: {
+            title: 'Ozone',
+            body: 'Lothlorien feel',
+            private: true,
+            userId: this.activeUser.id
+          }
+        };
+  
+        request.post(options, (err, res, body) => {
+          Wiki.findOne({where: {title: 'Ozone'}})
+          .then((wiki) => {
+            done();
+          })
+          .catch((err) => {
+            console.log(err);
+            expect(err).toContain('');
+            done();
+          });
+        });
       });
       
     });
@@ -506,7 +531,7 @@ describe('routes : wikis', () => {
   describe('guest performing CRUD action on Wiki', () => {
     beforeEach((done) => {
       request.get({
-        url: 'http://localhost:300/auth/fake',
+        url: 'http://localhost:3000/auth/fake',
         form: {
           role: 0
         }

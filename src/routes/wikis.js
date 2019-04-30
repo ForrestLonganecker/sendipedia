@@ -9,7 +9,7 @@ router.get('/wikis/new', wikiController.new);
 router.get('/wikis/:id', wikiController.show);
 router.get('/wikis/:id/edit', wikiController.edit);
 router.post('/wikis/create', helper.ensureAuthenticated, wikiController.create);
-router.post('/wikis/:id/destroy', wikiController.destroy);
-router.post('/wikis/:id/update', wikiController.update);
+router.post('/wikis/:id/destroy', helper.ensureAuthenticated, wikiController.destroy);
+router.post('/wikis/:id/update', helper.ensureAuthenticated, wikiController.update);
 
 module.exports = router;
