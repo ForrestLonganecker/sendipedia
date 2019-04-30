@@ -65,7 +65,7 @@ module.exports = {
     res.render('users/stripe')
   },
   promoteUser(req, res, next){
-    //insert stripe logic here
+    //keeping this around for admin use
     
     if(req.user.role === 'standard'){
       userQueries.promoteUser(req, (err, user) => {
@@ -99,38 +99,29 @@ module.exports = {
     }
   },
   chargeUser(req, res, next){
-    const token = req.body.stripeToken; // Using Express
 
-    console.log('{USER CONTROLLER} 1: ', req);
-
-    (async () => {
-      const charge = await stripe.charges.create({
+    stripe.customers.create({
+      email: req.body.stripeEmail,
+      source: req.body.stripeToken
+    })
+    .then((customer) => {
+      stripe.charges.create({
         amount: 1500,
         currency: 'usd',
-        description: 'Premium account upgrade',
-        source: token,
+        customer: customer.id,
+        description:'Premium membership upgrade'
       });
-    })()
-    .catch((err) => {
-      console.log('{USER CONTROLLER} 2: ', err);
-    });
+    })
+    .then((charge) => {
+      userQueries.promoteUser(req, (err, user) => {
+        if(err){
+          req.flash('error', err);
+          res.redirect('users/upgrade');
+        } else {
+          req.flash('notice', "You've successfully upgraded your account to premium!");
+          res.redirect('/');
+        }
+      });
+    }) 
   },
 };
-
-// chargeUser(req, res, next){ 
-//   (async () => {
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ['card'],
-//       line_items: [{
-//         name: 'Premium account',
-//         description: 'upgraded user from standard to premium account',
-//         amount: 1500,
-//         currency: 'usd',
-//         quantity: 1
-//       }],
-//       success_url: '/',
-//       cancel_url: '/',
-//     });
-//   }) ();
-
-// },

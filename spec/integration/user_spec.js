@@ -153,7 +153,7 @@ describe('routes : users', () => {
     });
 
     describe('POST /users/:id/charge', () => {
-      it('should charge, upgrade and redirect to account page', () => {
+      fit('should charge, upgrade and redirect to account page', () => {
         request.post(`${base}${this.activeUser.id}/charge`, (err, res, body) => {
           expect(err).toBeNull();
           expect(body).toContain('premium');
@@ -164,10 +164,13 @@ describe('routes : users', () => {
             expect(user.role).toBe('premium');
             expect(user.name).toBe('Rocky Limber');
           })
-        })
-
-      })
-    })
+          .catch((err) => {
+            console.log(err);
+            done();
+          });
+        });
+      });
+    });
 
     describe('POST /users/promote', () => {
       it('should promote the user to premium and redirect to homepage', (done) => {
