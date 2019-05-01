@@ -10,7 +10,7 @@
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
 
-      <h1><%= wiki.title %></h1>
+      <h1><%- wiki.title %></h1>
       <h2><%= wiki.private ? 'Private' : 'Public' %></h2>
       <% if(currentUser && (currentUser.isAdmin() || currentUser.isPremiumOwner(wiki.userId))){ %>
         <form style="display:initial" action="/wikis/<%= wiki.id %>/<%= wiki.private ? 'makePublic' : 'makePrivate' %>" method="post">
@@ -20,7 +20,7 @@
       
       <a href="/wikis">Back</a>
 
-      <% if(currentUser && currentUser.isOwner(wiki.userId)){ %>
+      <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(wiki.userId))){ %>
         <a href="/wikis/<%= wiki.id %>/edit">Edit</a>
       <% } %>
         
@@ -31,7 +31,7 @@
         </form>
       <% } %>
           
-      <p><%= wiki.body %></p>
+      <p><%- wiki.body %></p>
     </main>
   </body>
 </html>

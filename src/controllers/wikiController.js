@@ -1,5 +1,6 @@
 const wikiQueries = require('../db/queries.wikis.js');
 const Authorizer = require('../policies/wiki');
+const markdown = require("markdown").markdown;
 
 module.exports = {
   index(req, res, next){
@@ -27,7 +28,7 @@ module.exports = {
     if(authorized){
       let newWiki = {
         title: req.body.title,
-        body: req.body.body,
+        body: markdown.toHTML(req.body.body),
         // currently hard-coding false, switch out for upgraded users
         private: false,
         userId: req.user.id
@@ -50,8 +51,7 @@ module.exports = {
     if(authorized){
       let newWiki = {
         title: req.body.title,
-        body: req.body.body,
-        // currently hard-coding false, switch out for upgraded users
+        body: markdown.toHTML(req.body.body),
         private: req.body.private,
         userId: req.user.id
       };

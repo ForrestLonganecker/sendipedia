@@ -1,5 +1,6 @@
 const Wiki = require('./models').Wiki;
 const Authorizer = require('../policies/wiki');
+const markdown = require('markdown').markdown;
 
 module.exports = {
   getAllWikis(callback){
@@ -72,9 +73,12 @@ module.exports = {
       const authorized = new Authorizer(req.user, wiki).update();
 
       if(authorized){
-        wiki.update(updatedWiki, {
-          fields: Object.keys(updatedWiki)
-        })
+        wiki.update({
+          title: updatedWiki.title, 
+          body: markdown.toHTML(updatedWiki.body)
+        },
+          {where: {id: req.params.id}}
+        )
         .then(() => {
           callback(null, wiki);
         })
