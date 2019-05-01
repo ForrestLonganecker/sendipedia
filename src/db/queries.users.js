@@ -1,4 +1,5 @@
 const User = require('./models').User;
+const Wiki = require('./models').Wiki;
 const bcrypt = require('bcryptjs');
 
 module.exports = {
@@ -26,12 +27,16 @@ module.exports = {
         callback(404);
       } else {
         result["user"] = user;
+        Wiki.scope({method: ["allOwnedPrivate", id]}).findAll()
+        .then((wikis) => {
+          result["wikis"] = wikis;
+          callback(null, result);
+        })
+        .catch((err) => {
+          callback(err);
+        });
         // can insert scope for associated items here
-        callback(null, result);
       }
-    })
-    .catch((err) => {
-      callback(err);
     });
   },
   promoteUser(req, callback){

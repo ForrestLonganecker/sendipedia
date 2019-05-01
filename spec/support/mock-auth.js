@@ -9,7 +9,7 @@ module.exports = {
       email = req.body.email || email;
       name = req.body.name || name;
 
-      console.log(id);
+      // console.log(id);
   
       if(id && id != 0){
         req.user = {

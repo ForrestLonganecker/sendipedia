@@ -11,15 +11,21 @@
       <% include ../static/partials/messages.ejs %>
 
       <h1><%= wiki.title %></h1>
+      <h2><%= wiki.private ? 'Private' : 'Public' %></h2>
+      <% if(currentUser && (currentUser.isAdmin() || currentUser.isPremiumOwner(wiki.userId))){ %>
+        <form style="display:initial" action="/wikis/<%= wiki.id %>/<%= wiki.private ? 'makePublic' : 'makePrivate' %>" method="post">
+          <button type="submit"><%= wiki.private ? 'Make Public' : 'Make Private' %></button>
+        </form>
+      <% } %>
       
       <a href="/wikis">Back</a>
 
-      <% if(currentUser){ %>
+      <% if(currentUser && currentUser.isOwner(wiki.userId)){ %>
         <a href="/wikis/<%= wiki.id %>/edit">Edit</a>
       <% } %>
         
         
-      <% console.log('{WIKI SHOW} CURREENT USER: ', currentUser, ' WIKI USER ID: ', wiki.userId); if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(wiki.userId))){ %>
+      <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(wiki.userId))){ %>
         <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
           <button type="submit">Delete</button>
         </form>

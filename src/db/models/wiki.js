@@ -24,5 +24,11 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE'
     });
   };
+  Wiki.addScope("allOwnedPrivate", (userId) => {
+    return {
+      where: { userId: userId, private: true},
+      order: [["createdAt", "DESC"]]
+    }
+  });
   return Wiki;
 };

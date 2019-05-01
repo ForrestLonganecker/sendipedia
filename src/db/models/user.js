@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.isPremium = function() {
     return this.role === 'premium';
   };
-  User.prototype.isPremiumOwner = function() {
+  User.prototype.isPremiumOwner = function(userId) {
     return this.role === 'premium' && this.id === userId;
   };
   User.prototype.isOwner = function(userId) {

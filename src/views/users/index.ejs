@@ -15,6 +15,15 @@
       <h3><%= result.user.role %></h3>
 
       <a href="/users/<%= result.user.id %>/upgrade">Edit account</a>
+      
+      <div>
+        <h2>Your private wikis:</h2>
+        <% result.wikis.forEach((wiki) => { %>
+          <li>
+            <a href="/wikis/<%= wiki.id%>"><%= wiki.title %></a>
+          </li>
+        <% }) %>
+      </div>
     </main>
   </body>
 </html>

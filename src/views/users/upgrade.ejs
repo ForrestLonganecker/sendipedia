@@ -13,6 +13,7 @@
 
       <% if(currentUser.role == 'standard'){ %>
         <h1>Upgrade to a Premium account</h1>
+        <h2>Start creating your own private wikis</h2>
   
         <h1><%= currentUser.name %></h1>
 
@@ -28,11 +29,12 @@
         </form>
       <% } else if(currentUser.role == 'premium'){ %>
         <h1>Downgrade your account to Standard</h1>
+        <h2>WARNING: all private wikis will become public if you demote your account!</h2>
   
         <form action="/users/demote" method="post">
   
           <div>
-            <label for="standard">Standard</label>
+            <label for="standard">Are you sure you want to downgrade?</label>
             <button type="submit">Downgrade account</button>
           </div>
   

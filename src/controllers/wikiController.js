@@ -3,7 +3,7 @@ const Authorizer = require('../policies/wiki');
 
 module.exports = {
   index(req, res, next){
-    wikiQueries.getAllWikis((err, wikis) => {
+    wikiQueries.getAllPublicWikis((err, wikis) => {
       if(err){
         res.redirect(500, 'static/index');
       } else {
@@ -30,6 +30,29 @@ module.exports = {
         body: req.body.body,
         // currently hard-coding false, switch out for upgraded users
         private: false,
+        userId: req.user.id
+      };
+      wikiQueries.addWiki(newWiki, (err, wiki) => {
+        if(err){
+          res.redirect(500, 'wikis/new');
+        } else {
+          res.redirect(303, `/wikis/${wiki.id}`);
+        }
+      });
+    } else {
+      req.flash('notice', 'You are not authorized to do that.');
+      res.redirect('/wikis');
+    }
+  },
+  createPrivate(req, res, next){
+    const authorized = new Authorizer(req.user).create();
+
+    if(authorized){
+      let newWiki = {
+        title: req.body.title,
+        body: req.body.body,
+        // currently hard-coding false, switch out for upgraded users
+        private: req.body.private,
         userId: req.user.id
       };
       wikiQueries.addWiki(newWiki, (err, wiki) => {
@@ -82,6 +105,24 @@ module.exports = {
     wikiQueries.updateWiki(req, req.body, (err, wiki) => {
       if(err || wiki == null){
         res.redirect(404, `/wikis/${req.params.id}/edit`);
+      } else {
+        res.redirect(`/wikis/${req.params.id}`);
+      }
+    });
+  },
+  makePrivate(req, res, next){
+    wikiQueries.makeWikiPrivate(req, (err, wiki) => {
+      if(err || wiki == null){
+        res.redirect(404, `/wikis/${req.params.id}`);
+      } else {
+        res.redirect(`/wikis/${req.params.id}`);
+      }
+    });
+  },
+  makePublic(req, res, next){
+    wikiQueries.makeWikiPublic(req, (err, wiki) => {
+      if(err || wiki == null){
+        res.redirect(404, `/wikis/${req.params.id}`);
       } else {
         res.redirect(`/wikis/${req.params.id}`);
       }

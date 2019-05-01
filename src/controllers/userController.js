@@ -1,5 +1,6 @@
 const passport = require("passport");
 const userQueries = require("../db/queries.users.js");
+const wikiQueries = require("../db/queries.wikis.js");
 const emails = require("../assets/sendgrid/emails.js");
 
 const stripe = require('stripe')(process.env.stripeSecretKey);
@@ -89,6 +90,9 @@ module.exports = {
           req.flash('error', err);
           res.redirect('users/upgrade');
         } else {
+
+          // async make the re-render happen before demotion of private wikis
+          wikiQueries.demoteWikis(req);
           req.flash('notice', "You've successfully downgraded your account to standard");
           res.redirect(`/users/${req.user.id}`);
         }
