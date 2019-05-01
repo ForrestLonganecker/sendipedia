@@ -19,7 +19,7 @@
       <% } %>
         
         
-      <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(wiki.userId))){ %>
+      <% console.log('{WIKI SHOW} CURREENT USER: ', currentUser, ' WIKI USER ID: ', wiki.userId); if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(wiki.userId))){ %>
         <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
           <button type="submit">Delete</button>
         </form>

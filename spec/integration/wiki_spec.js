@@ -11,6 +11,10 @@ describe('routes : wikis', () => {
     this.wiki;
     this.user;
 
+    // write logic for all user set up 
+
+
+
     sequelize.sync({force: true}).then((res) => {
       
       User.create({
@@ -188,151 +192,17 @@ describe('routes : wikis', () => {
   // });
 
 
-  // describe('premium user performing CRUD actions for Wiki', () => {
-  //   beforeEach((done) => {
-  //     request.get({
-  //       url: 'http://localhost:3000/auth/fake',
-  //       form: {
-  //         role: 'premium'
-  //       }
-  //     },
-  //       (err, res, body) => {
-  //         done();
-  //       }
-  //     );
-  //   });
-
-  //   describe('GET /wikis', () => {
-  //     it('should return a status code of 200, and all wikis', (done) => {
-  //       request.get(base, (err, res, body) => {
-  //         expect(res.statusCode).toBe(200);
-  //         expect(err).toBeNull();
-  //         expect(body).toContain('Wikis');
-  //         expect(body).toContain('Carver');
-  //         done();
-  //       });
-  //     });
-  //   });
-    
-  //   describe('GET /wikis/new', () => {
-  //     it('should render a new wiki form', (done) =>  {
-  //       request.get(`${base}/new`, (err, res, body) => {
-  //         expect(err).toBeNull();
-  //         expect(body).toContain('New Wiki');
-  //         done();
-  //       });
-  //     });
-  
-  //   });
-  
-  //   describe('GET /wikis/:id', () => {
-  //     it('should render a view with the selected wiki', (done) => {
-  //       request.get(`${base}/${this.wiki.id}`, (err, res, body) => {
-  //         expect(err).toBeNull();
-  //         expect(body).toContain('Carver');
-  //         expect(body).toContain('The moss factory');
-  //         done();
-  //       });
-  //     });
-  //   });
-  
-  //   describe('GET /wikis/:id/edit', () => {
-  //     it('should render a view with an edit topic form', (done) => {
-  //       request.get(`${base}/${this.wiki.id}/edit`, (err, res, body) => {
-  //         expect(err).toBeNull();
-  //         expect(body).toContain('Edit Wiki');
-  //         expect(body).toContain('Carver');
-  //         expect(body).toContain('The moss factory');
-  //         done();
-  //       });
-  //     });
-  //   });
-  
-  //   describe('POST /wikis/create', () => {
-  //     it('should create a new wiki and redirect', (done) => {
-  //       const options = {
-  //         url:`${base}/create`,
-  //         form: {
-  //           title: 'Ozone',
-  //           body: 'Lothlorien feel',
-  //           private: false,
-  //           userId: this.user.id
-  //         }
-  //       };
-  
-  //       request.post(options, (err, res, body) => {
-  //         Wiki.findOne({where: {title: 'Ozone'}})
-  //         .then((wiki) => {
-  //           expect(res.statusCode).toBe(303);
-  //           expect(wiki.title).toBe('Ozone');
-  //           expect(wiki.body).toBe('Lothlorien feel');
-  //           done();
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //           done();
-  //         });
-  //       })
-  //     });
-      
-  //   });
-  
-  //   describe('POST /wikis/:id/destroy', () => {
-  //     it('should delete the wiki with the associated ID', (done) => {
-  //       Wiki.findAll()
-  //       .then((wikis) => {
-  //         const wikiCountBeforeDelete = wikis.length;
-  //         expect(wikiCountBeforeDelete).toBe(1);
-  
-  //         request.post(`${base}/${this.wiki.id}/destroy`, (err, res, body) => {
-  //           Wiki.findAll()
-  //           .then((wikis) => {
-  //             expect(err).toBeNull();
-  //             expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
-  //             done();
-  //           })
-  //         });
-  //       });
-  //     });
-  //   });
-  
-  //   describe('POST /wikis/:id/update', () => {
-  //     it('should update the topic with the given values', (done) => {
-  //       const options = {
-  //         url: `${base}/${this.wiki.id}/update`,
-  //         form: {
-  //           title: 'Carver, OR',
-  //           body: 'Twilight boulders'
-  //         }
-  //       };
-  
-  //       request.post(options, (err, res, body) => {
-  //         expect(err).toBeNull();
-  //         Wiki.findOne({ where: {id: this.wiki.id }})
-  //         .then((wiki) => {
-  //           expect(wiki.title).toBe('Carver, OR');
-  //           done();
-  //         });
-  //       });
-  //     });
-  //   });
-
-
-  //   // END OF PREMIUM SUITE
-  // });
-
-  describe('standard user performing CRUD actions on Wiki', () => {
+  describe('premium user performing CRUD actions for Wiki', () => {
     beforeEach((done) => {
-      this.activeUser;
-
+      this.premiumUser;
       User.create({
-        name: 'Rocky Limber',
-        email: 'rocky@climb.com',
+        name: 'Cliff Smith',
+        email: 'rock@climb.com',
         password: '123456',
-        role: 'standard'
+        role: 'premium'
       })
       .then((user) => {
-        this.activeUser = user;
+        this.premiumUser = user;
 
         request.get({
           url: 'http://localhost:3000/auth/fake',
@@ -342,7 +212,7 @@ describe('routes : wikis', () => {
             role: user.role,
             userId: user.id
           }
-        }, 
+        },
           (err, res, body) => {
             done();
           }
@@ -366,8 +236,8 @@ describe('routes : wikis', () => {
       it('should render a new wiki form', (done) =>  {
         request.get(`${base}/new`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).not.toContain('Private');
           expect(body).toContain('New Wiki');
+          expect(body).toContain('Make Private');
           done();
         });
       });
@@ -376,6 +246,19 @@ describe('routes : wikis', () => {
   
     describe('GET /wikis/:id', () => {
       it('should render a view with the selected wiki', (done) => {
+        request.get(`${base}/${this.wiki.id}`, (err, res, body) => {
+          expect(err).toBeNull();
+          expect(body).toContain('Carver');
+          expect(body).toContain('The moss factory');
+          done();
+        });
+      });
+
+      it('should render a view with the selected private wiki if owner', (done) => {
+        Wiki.create({
+
+        })
+
         request.get(`${base}/${this.wiki.id}`, (err, res, body) => {
           expect(err).toBeNull();
           expect(body).toContain('Carver');
@@ -405,7 +288,7 @@ describe('routes : wikis', () => {
             title: 'Ozone',
             body: 'Lothlorien feel',
             private: false,
-            userId: this.activeUser.id
+            userId: this.user.id
           }
         };
   
@@ -423,35 +306,11 @@ describe('routes : wikis', () => {
           });
         })
       });
-
-      it('should not create a private wiki', (done) => {
-        const options = {
-          url:`${base}/create`,
-          form: {
-            title: 'Ozone',
-            body: 'Lothlorien feel',
-            private: true,
-            userId: this.activeUser.id
-          }
-        };
-  
-        request.post(options, (err, res, body) => {
-          Wiki.findOne({where: {title: 'Ozone'}})
-          .then((wiki) => {
-            done();
-          })
-          .catch((err) => {
-            console.log(err);
-            expect(err).toContain('');
-            done();
-          });
-        });
-      });
       
     });
   
     describe('POST /wikis/:id/destroy', () => {
-      it('should not delete the wiki if not the owner', (done) => {
+      it('should delete the wiki with the associated ID', (done) => {
         Wiki.findAll()
         .then((wikis) => {
           const wikiCountBeforeDelete = wikis.length;
@@ -461,42 +320,10 @@ describe('routes : wikis', () => {
             Wiki.findAll()
             .then((wikis) => {
               expect(err).toBeNull();
-              expect(wikis.length).toBe(wikiCountBeforeDelete);
+              expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
               done();
             })
           });
-        });
-      });
-
-      it('should delete the wiki if owner', (done) => {
-        this.activeWiki;
-        Wiki.create({
-          title: 'something',
-          body: 'a body that will be deleted',
-          private: false,
-          userId: this.activeUser.id
-        })
-        .then((wiki) => {
-          this.activeWiki = wiki;
-          
-          Wiki.findAll()
-          .then((wikis) => {
-            const wikiCountBeforeDelete = wikis.length;
-            expect(wikiCountBeforeDelete).toBe(2);
-    
-            request.post(`${base}/${this.activeWiki.id}/destroy`, (err, res, body) => {
-              Wiki.findAll()
-              .then((wikis) => {
-                expect(err).toBeNull();
-                expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
-                done();
-              })
-            });
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          done();
         });
       });
     });
@@ -512,7 +339,6 @@ describe('routes : wikis', () => {
         };
   
         request.post(options, (err, res, body) => {
-          console.log(body);
           expect(err).toBeNull();
           Wiki.findOne({ where: {id: this.wiki.id }})
           .then((wiki) => {
@@ -524,253 +350,470 @@ describe('routes : wikis', () => {
     });
 
 
-    // END OF STANDARD SUITE
+    // END OF PREMIUM SUITE
   });
 
+  // describe('standard user performing CRUD actions on Wiki', () => {
+  //   beforeEach((done) => {
+  //     this.activeUser;
+  //     User.create({
+  //       name: 'Rocky Limber',
+  //       email: 'rocky@climb.com',
+  //       password: '123456',
+  //       role: 'standard'
+  //     })
+  //     .then((user) => {
+  //       this.activeUser = user;
 
-  describe('guest performing CRUD action on Wiki', () => {
-    beforeEach((done) => {
-      request.get({
-        url: 'http://localhost:3000/auth/fake',
-        form: {
-          role: 0
-        }
-      },
-        (err, res, body) => {
-          done();
-        }
-      );
-    });
-
-    describe('GET /wikis', () => {
-      it('should return a status code of 200, and all wikis', (done) => {
-        request.get(base, (err, res, body) => {
-          expect(res.statusCode).toBe(200);
-          expect(err).toBeNull();
-          expect(body).toContain('Wikis');
-          expect(body).toContain('Carver');
-          done();
-        });
-      });
-    });
-    
-    describe('GET /wikis/new', () => {
-      it('should redirect to wiki/index', (done) =>  {
-        request.get(`${base}/new`, (err, res, body) => {
-          expect(err).toBeNull();
-          expect(body).toContain('Wikis');
-          done();
-        });
-      });
-  
-    });
-  
-    describe('GET /wikis/:id', () => {
-      it('should render a view with the selected wiki', (done) => {
-        request.get(`${base}/${this.wiki.id}`, (err, res, body) => {
-          expect(err).toBeNull();
-          expect(body).toContain('Carver');
-          expect(body).toContain('The moss factory');
-          done();
-        });
-      });
-    });
-  
-    describe('GET /wikis/:id/edit', () => {
-      it('should not render a view with an edit form', (done) => {
-        request.get(`${base}/${this.wiki.id}/edit`, (err, res, body) => {
-          expect(err).toBeNull();
-          expect(body).not.toContain('Edit Wiki');
-          expect(body).toContain('Carver');
-          done();
-        });
-      });
-    });
-  
-    describe('POST /wikis/create', () => {
-      it('should not create a new wiki', (done) => {
-        const options = {
-          url:`${base}/create`,
-          form: {
-            title: 'Ozone',
-            body: 'Lothlorien feel',
-            private: false,
-          }
-        };
-  
-        request.post(options, (err, res, body) => {
-          Wiki.findOne({where:  {title: 'Ozone'}})
-          .then((wiki) => {
-            expect(wiki).toBeNull();
-            done();
-          })
-          .catch((err) => {
-            console.log(err);
-            done();
-          });
-        });
-      });
-      
-    });
-  
-    describe('POST /wikis/:id/destroy', () => {
-      it('should not delete the wiki with the associated ID', (done) => {
-        Wiki.findAll()
-        .then((wikis) => {
-          const wikiCountBeforeDelete = wikis.length;
-          expect(wikiCountBeforeDelete).toBe(1);
-  
-          request.post(`${base}/${this.wiki.id}/destroy`, (err, res, body) => {
-            Wiki.findAll()
-            .then((wikis) => {
-              expect(err).toBeNull();
-              expect(wikis.length).toBe(wikiCountBeforeDelete);
-              done();
-            })
-          });
-        });
-      });
-    });
-  
-    describe('POST /wikis/:id/update', () => {
-      it('should not update the topic with the given values', (done) => {
-        const options = {
-          url: `${base}/${this.wiki.id}/update`,
-          form: {
-            title: 'Carver, OR',
-            body: 'Twilight boulders'
-          }
-        };
-  
-        request.post(options, (err, res, body) => {
-          expect(err).toBeNull();
-          Wiki.findOne({ where: {id: this.wiki.id }})
-          .then((wiki) => {
-            expect(wiki.title).toBe('Carver');
-            done();
-          });
-        });
-      });
-    });
-
-    // END OF GUEST SUITE
-  });
-
-
-  // describe('GET /wikis', () => {
-  //   it('should return a status code of 200, and all wikis', (done) => {
-  //     request.get(base, (err, res, body) => {
-  //       expect(res.statusCode).toBe(200);
-  //       expect(err).toBeNull();
-  //       expect(body).toContain('Wikis');
-  //       expect(body).toContain('Carver');
-  //       done();
-  //     });
-  //   });
-  // });
-  
-  // describe('GET /wikis/new', () => {
-  //   it('should render a new wiki form', (done) =>  {
-  //     request.get(`${base}/new`, (err, res, body) => {
-  //       expect(err).toBeNull();
-  //       expect(body).toContain('New Wiki');
-  //       done();
+  //       request.get({
+  //         url: 'http://localhost:3000/auth/fake',
+  //         form: {
+  //           name: user.name,
+  //           email: user.email,
+  //           role: user.role,
+  //           userId: user.id
+  //         }
+  //       }, 
+  //         (err, res, body) => {
+  //           done();
+  //         }
+  //       );
   //     });
   //   });
 
-  // });
-
-  // describe('GET /wikis/:id', () => {
-  //   it('should render a view with the selected wiki', (done) => {
-  //     request.get(`${base}/${this.wiki.id}`, (err, res, body) => {
-  //       expect(err).toBeNull();
-  //       expect(body).toContain('Carver');
-  //       expect(body).toContain('The moss factory');
-  //       done();
-  //     });
-  //   });
-  // });
-
-  // describe('GET /wikis/:id/edit', () => {
-  //   it('should render a view with an edit topic form', (done) => {
-  //     request.get(`${base}/${this.wiki.id}/edit`, (err, res, body) => {
-  //       expect(err).toBeNull();
-  //       expect(body).toContain('Edit Wiki');
-  //       expect(body).toContain('Carver');
-  //       expect(body).toContain('The moss factory');
-  //       done();
-  //     });
-  //   });
-  // });
-
-  // describe('POST /wikis/create', () => {
-  //   it('should create a new wiki and redirect', (done) => {
-  //     const options = {
-  //       url:`${base}/create`,
-  //       form: {
-  //         title: 'Ozone',
-  //         body: 'Lothlorien feel',
-  //         private: false,
-  //         userId: this.user.id
-  //       }
-  //     };
-
-  //     request.post(options, (err, res, body) => {
-  //       Wiki.findOne({where: {title: 'Ozone'}})
-  //       .then((wiki) => {
-  //         expect(res.statusCode).toBe(303);
-  //         expect(wiki.title).toBe('Ozone');
-  //         expect(wiki.body).toBe('Lothlorien feel');
+  //   describe('GET /wikis', () => {
+  //     it('should return a status code of 200, and all wikis', (done) => {
+  //       request.get(base, (err, res, body) => {
+  //         expect(res.statusCode).toBe(200);
+  //         expect(err).toBeNull();
+  //         expect(body).toContain('Wikis');
+  //         expect(body).toContain('Carver');
   //         done();
+  //       });
+  //     });
+  //   });
+    
+  //   describe('GET /wikis/new', () => {
+  //     it('should render a new wiki form', (done) =>  {
+  //       request.get(`${base}/new`, (err, res, body) => {
+  //         expect(err).toBeNull();
+  //         expect(body).not.toContain('Private');
+  //         expect(body).toContain('New Wiki');
+  //         done();
+  //       });
+  //     });
+  
+  //   });
+  
+  //   describe('GET /wikis/:id', () => {
+  //     xit('should render a view with the selected wiki', (done) => {
+  //       request.get(`${base}/${this.wiki.id}`, (err, res, body) => {
+  //         expect(err).toBeNull();
+  //         expect(body).toContain('Carver');
+  //         expect(body).toContain('The moss factory');
+  //         done();
+  //       });
+  //     });
+  //   });
+  
+  //   describe('GET /wikis/:id/edit', () => {
+  //     it('should render a view with an edit topic form', (done) => {
+  //       request.get(`${base}/${this.wiki.id}/edit`, (err, res, body) => {
+  //         expect(err).toBeNull();
+  //         expect(body).toContain('Edit Wiki');
+  //         expect(body).toContain('Carver');
+  //         expect(body).toContain('The moss factory');
+  //         done();
+  //       });
+  //     });
+  //   });
+  
+  //   describe('POST /wikis/create', () => {
+  //     it('should create a new wiki and redirect', (done) => {
+  //       const options = {
+  //         url:`${base}/create`,
+  //         form: {
+  //           title: 'Ozone',
+  //           body: 'Lothlorien feel',
+  //           private: false,
+  //           userId: this.activeUser.id
+  //         }
+  //       };
+  
+  //       request.post(options, (err, res, body) => {
+  //         Wiki.findOne({where: {title: 'Ozone'}})
+  //         .then((wiki) => {
+  //           expect(res.statusCode).toBe(303);
+  //           expect(wiki.title).toBe('Ozone');
+  //           expect(wiki.body).toBe('Lothlorien feel');
+  //           done();
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           done();
+  //         });
+  //       })
+  //     });
+
+  //     it('should not create a private wiki', (done) => {
+  //       const options = {
+  //         url:`${base}/create`,
+  //         form: {
+  //           title: 'Ozone',
+  //           body: 'Lothlorien feel',
+  //           private: true,
+  //           userId: this.activeUser.id
+  //         }
+  //       };
+  
+  //       request.post(options, (err, res, body) => {
+  //         Wiki.findOne({where: {title: 'Ozone'}})
+  //         .then((wiki) => {
+  //           expect(wiki).toBeNull();
+  //           done();
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           done();
+  //         });
+  //       });
+  //     });
+      
+  //   });
+
+  //   describe('POST /wikis/:id/private', () => {
+  //     it('should not make a wiki private', (done) => {
+  //       // attempt wiki/private
+  //     });
+  //   });
+
+  //   describe('POST /wikis/:id/public', () => {
+  //     it('should not make a wiki public', (done) => {
+  //       // attempt wiki/public
+  //     })
+  //   })
+  
+  //   describe('POST /wikis/:id/destroy', () => {
+  //     it('should not delete the wiki if not the owner', (done) => {
+  //       Wiki.findAll()
+  //       .then((wikis) => {
+  //         const wikiCountBeforeDelete = wikis.length;
+  //         expect(wikiCountBeforeDelete).toBe(1);
+  
+  //         request.post(`${base}/${this.wiki.id}/destroy`, (err, res, body) => {
+  //           Wiki.findAll()
+  //           .then((wikis) => {
+  //             expect(err).toBeNull();
+  //             expect(wikis.length).toBe(wikiCountBeforeDelete);
+  //             done();
+  //           })
+  //         });
+  //       });
+  //     });
+
+  //     it('should delete the wiki if owner', (done) => {
+  //       this.activeWiki;
+  //       Wiki.create({
+  //         title: 'something',
+  //         body: 'a body that will be deleted',
+  //         private: false,
+  //         userId: this.activeUser.id
+  //       })
+  //       .then((wiki) => {
+  //         this.activeWiki = wiki;
+          
+  //         Wiki.findAll()
+  //         .then((wikis) => {
+  //           const wikiCountBeforeDelete = wikis.length;
+  //           expect(wikiCountBeforeDelete).toBe(2);
+    
+  //           request.post(`${base}/${this.activeWiki.id}/destroy`, (err, res, body) => {
+  //             Wiki.findAll()
+  //             .then((wikis) => {
+  //               expect(err).toBeNull();
+  //               expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
+  //               done();
+  //             })
+  //           });
+  //         });
   //       })
   //       .catch((err) => {
   //         console.log(err);
   //         done();
   //       });
-  //     })
+  //     });
   //   });
-    
-  // });
-
-  // describe('POST /wikis/:id/destroy', () => {
-  //   it('should delete the wiki with the associated ID', (done) => {
-  //     Wiki.findAll()
-  //     .then((wikis) => {
-  //       const wikiCountBeforeDelete = wikis.length;
-  //       expect(wikiCountBeforeDelete).toBe(1);
-
-  //       request.post(`${base}/${this.wiki.id}/destroy`, (err, res, body) => {
-  //         Wiki.findAll()
-  //         .then((wikis) => {
-  //           expect(err).toBeNull();
-  //           expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
+  
+  //   describe('POST /wikis/:id/update', () => {
+  //     it('should update the topic with the given values', (done) => {
+  //       const options = {
+  //         url: `${base}/${this.wiki.id}/update`,
+  //         form: {
+  //           title: 'Carver, OR',
+  //           body: 'Twilight boulders'
+  //         }
+  //       };
+  
+  //       request.post(options, (err, res, body) => {
+  //         console.log(body);
+  //         expect(err).toBeNull();
+  //         Wiki.findOne({ where: {id: this.wiki.id }})
+  //         .then((wiki) => {
+  //           expect(wiki.title).toBe('Carver, OR');
   //           done();
-  //         })
+  //         });
   //       });
   //     });
   //   });
+
+
+  //   // END OF STANDARD SUITE
   // });
 
-  // describe('POST /wikis/:id/update', () => {
-  //   it('should update the topic with the given values', (done) => {
-  //     const options = {
-  //       url: `${base}/${this.wiki.id}/update`,
-  //       form: {
-  //         title: 'Carver, OR',
-  //         body: 'Twilight boulders'
-  //       }
-  //     };
 
-  //     request.post(options, (err, res, body) => {
-  //       expect(err).toBeNull();
-  //       Wiki.findOne({ where: {id: this.wiki.id }})
-  //       .then((wiki) => {
-  //         expect(wiki.title).toBe('Carver, OR');
+  // describe('guest performing CRUD action on Wiki', () => {
+  //   beforeEach((done) => {
+  //     request.get({
+  //       url: 'http://localhost:3000/auth/fake',
+  //       form: {
+  //         role: 0
+  //       }
+  //     },
+  //       (err, res, body) => {
+  //         done();
+  //       }
+  //     );
+  //   });
+
+  //   describe('GET /wikis', () => {
+  //     it('should return a status code of 200, and all wikis', (done) => {
+  //       request.get(base, (err, res, body) => {
+  //         expect(res.statusCode).toBe(200);
+  //         expect(err).toBeNull();
+  //         expect(body).toContain('Wikis');
+  //         expect(body).toContain('Carver');
   //         done();
   //       });
   //     });
   //   });
+    
+  //   describe('GET /wikis/new', () => {
+  //     it('should redirect to wiki/index', (done) =>  {
+  //       request.get(`${base}/new`, (err, res, body) => {
+  //         expect(err).toBeNull();
+  //         expect(body).toContain('Wikis');
+  //         done();
+  //       });
+  //     });
+  
+  //   });
+  
+  //   describe('GET /wikis/:id', () => {
+  //     xit('should render a view with the selected wiki', (done) => {
+  //       request.get(`${base}/${this.wiki.id}`, (err, res, body) => {
+  //         expect(err).toBeNull();
+  //         expect(body).toContain('Carver');
+  //         expect(body).toContain('The moss factory');
+  //         done();
+  //       });
+  //     });
+  //   });
+  
+  //   describe('GET /wikis/:id/edit', () => {
+  //     xit('should not render a view with an edit form', (done) => {
+  //       request.get(`${base}/${this.wiki.id}/edit`, (err, res, body) => {
+  //         expect(err).toBeNull();
+  //         expect(body).not.toContain('Edit Wiki');
+  //         expect(body).toContain('Carver');
+  //         done();
+  //       });
+  //     });
+  //   });
+  
+  //   describe('POST /wikis/create', () => {
+  //     it('should not create a new wiki', (done) => {
+  //       const options = {
+  //         url:`${base}/create`,
+  //         form: {
+  //           title: 'Ozone',
+  //           body: 'Lothlorien feel',
+  //           private: false,
+  //         }
+  //       };
+  
+  //       request.post(options, (err, res, body) => {
+  //         Wiki.findOne({where:  {title: 'Ozone'}})
+  //         .then((wiki) => {
+  //           expect(wiki).toBeNull();
+  //           done();
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           done();
+  //         });
+  //       });
+  //     });
+      
+  //   });
+  
+  //   describe('POST /wikis/:id/destroy', () => {
+  //     it('should not delete the wiki with the associated ID', (done) => {
+  //       Wiki.findAll()
+  //       .then((wikis) => {
+  //         const wikiCountBeforeDelete = wikis.length;
+  //         expect(wikiCountBeforeDelete).toBe(1);
+  
+  //         request.post(`${base}/${this.wiki.id}/destroy`, (err, res, body) => {
+  //           Wiki.findAll()
+  //           .then((wikis) => {
+  //             expect(err).toBeNull();
+  //             expect(wikis.length).toBe(wikiCountBeforeDelete);
+  //             done();
+  //           })
+  //         });
+  //       });
+  //     });
+  //   });
+  
+  //   describe('POST /wikis/:id/update', () => {
+  //     xit('should not update the topic with the given values', (done) => {
+  //       const options = {
+  //         url: `${base}/${this.wiki.id}/update`,
+  //         form: {
+  //           title: 'Carver, OR',
+  //           body: 'Twilight boulders'
+  //         }
+  //       };
+  
+  //       request.post(options, (err, res, body) => {
+  //         expect(err).toBeNull();
+  //         Wiki.findOne({ where: {id: this.wiki.id }})
+  //         .then((wiki) => {
+  //           expect(wiki.title).toBe('Carver');
+  //           done();
+  //         });
+  //       });
+  //     });
+  //   });
+
+  //   // END OF GUEST SUITE
   // });
 
-  // end of test suite
+
+  // // describe('GET /wikis', () => {
+  // //   it('should return a status code of 200, and all wikis', (done) => {
+  // //     request.get(base, (err, res, body) => {
+  // //       expect(res.statusCode).toBe(200);
+  // //       expect(err).toBeNull();
+  // //       expect(body).toContain('Wikis');
+  // //       expect(body).toContain('Carver');
+  // //       done();
+  // //     });
+  // //   });
+  // // });
+  
+  // // describe('GET /wikis/new', () => {
+  // //   it('should render a new wiki form', (done) =>  {
+  // //     request.get(`${base}/new`, (err, res, body) => {
+  // //       expect(err).toBeNull();
+  // //       expect(body).toContain('New Wiki');
+  // //       done();
+  // //     });
+  // //   });
+
+  // // });
+
+  // // describe('GET /wikis/:id', () => {
+  // //   it('should render a view with the selected wiki', (done) => {
+  // //     request.get(`${base}/${this.wiki.id}`, (err, res, body) => {
+  // //       expect(err).toBeNull();
+  // //       expect(body).toContain('Carver');
+  // //       expect(body).toContain('The moss factory');
+  // //       done();
+  // //     });
+  // //   });
+  // // });
+
+  // // describe('GET /wikis/:id/edit', () => {
+  // //   it('should render a view with an edit topic form', (done) => {
+  // //     request.get(`${base}/${this.wiki.id}/edit`, (err, res, body) => {
+  // //       expect(err).toBeNull();
+  // //       expect(body).toContain('Edit Wiki');
+  // //       expect(body).toContain('Carver');
+  // //       expect(body).toContain('The moss factory');
+  // //       done();
+  // //     });
+  // //   });
+  // // });
+
+  // // describe('POST /wikis/create', () => {
+  // //   it('should create a new wiki and redirect', (done) => {
+  // //     const options = {
+  // //       url:`${base}/create`,
+  // //       form: {
+  // //         title: 'Ozone',
+  // //         body: 'Lothlorien feel',
+  // //         private: false,
+  // //         userId: this.user.id
+  // //       }
+  // //     };
+
+  // //     request.post(options, (err, res, body) => {
+  // //       Wiki.findOne({where: {title: 'Ozone'}})
+  // //       .then((wiki) => {
+  // //         expect(res.statusCode).toBe(303);
+  // //         expect(wiki.title).toBe('Ozone');
+  // //         expect(wiki.body).toBe('Lothlorien feel');
+  // //         done();
+  // //       })
+  // //       .catch((err) => {
+  // //         console.log(err);
+  // //         done();
+  // //       });
+  // //     })
+  // //   });
+    
+  // // });
+
+  // // describe('POST /wikis/:id/destroy', () => {
+  // //   it('should delete the wiki with the associated ID', (done) => {
+  // //     Wiki.findAll()
+  // //     .then((wikis) => {
+  // //       const wikiCountBeforeDelete = wikis.length;
+  // //       expect(wikiCountBeforeDelete).toBe(1);
+
+  // //       request.post(`${base}/${this.wiki.id}/destroy`, (err, res, body) => {
+  // //         Wiki.findAll()
+  // //         .then((wikis) => {
+  // //           expect(err).toBeNull();
+  // //           expect(wikis.length).toBe(wikiCountBeforeDelete - 1);
+  // //           done();
+  // //         })
+  // //       });
+  // //     });
+  // //   });
+  // // });
+
+  // // describe('POST /wikis/:id/update', () => {
+  // //   it('should update the topic with the given values', (done) => {
+  // //     const options = {
+  // //       url: `${base}/${this.wiki.id}/update`,
+  // //       form: {
+  // //         title: 'Carver, OR',
+  // //         body: 'Twilight boulders'
+  // //       }
+  // //     };
+
+  // //     request.post(options, (err, res, body) => {
+  // //       expect(err).toBeNull();
+  // //       Wiki.findOne({ where: {id: this.wiki.id }})
+  // //       .then((wiki) => {
+  // //         expect(wiki.title).toBe('Carver, OR');
+  // //         done();
+  // //       });
+  // //     });
+  // //   });
+  // // });
+
+  // // end of test suite
 });
