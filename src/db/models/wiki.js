@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       onDelete: 'CASCADE'
     });
+    Wiki.hasMany(models.Collaborator, {
+      foreignKey: 'wikiId',
+      as: 'collaborators'
+    });
   };
   Wiki.addScope("allOwnedPrivate", (userId) => {
     return {
