@@ -16,6 +16,10 @@ module.exports = class ApplicationPolicy {
     return this.user && this.user.role == 'premium';
   }
 
+  _isPremiumOwner(){
+    return this.user && this.user.role == 'premium' && this._isOwner();
+  }
+
   new(){
     return this.user != null;
   }

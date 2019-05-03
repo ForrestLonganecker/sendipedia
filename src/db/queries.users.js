@@ -30,6 +30,11 @@ module.exports = {
         Wiki.scope({method: ["allOwnedPrivate", id]}).findAll()
         .then((wikis) => {
           result["wikis"] = wikis;
+
+          Collaborator.scope({method: ["allCollabWikis", id]}).findAll()
+          .then((collaborators) => {
+            // do something with array of collaborator objects
+          })
           callback(null, result);
         })
         .catch((err) => {
