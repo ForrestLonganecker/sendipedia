@@ -33,6 +33,7 @@ module.exports = {
 
           Collaborator.scope({method: ["allCollabWikis", id]}).findAll()
           .then((collaborators) => {
+            
             // do something with array of collaborator objects
           })
           callback(null, result);
