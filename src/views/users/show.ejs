@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="main-container">
+      <% include ../static/partials/messages.ejs %>
+
+      <h1><%= result.user.name %></h1>
+      <h2>current account status:</h2>
+      <h3><%= result.user.role %></h3>
+
+      <a href="/users/<%= result.user.id %>/upgrade">Edit account</a>
+      <!-- throw in conditional rendering for premium/admin users -->
+      <div>
+        <h2>Your private wikis:</h2>
+        <% result.privateWikis.forEach((privateWiki) => { %>
+          <li>
+            <a href="/wikis/<%= result.privateWikis.id%>"><%= privateWiki.title %></a>
+          </li>
+        <% }) %>
+      </div>
+        
+        <!-- throw in conditional rendering for premium/admin users -->
+      <div>
+        <% if(currentUser.isPremium() || currentUser.isAdmin()){ %>
+
+          <h4>Add collaborator</h4>
+        
+          <form action="/users/collaborator/create" method="post">
+            <div>
+              <label for="wikiTitle">Wiki title</label>
+              <input type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
+            </div>  
+            <div>
+              <label for="userName">User name</label>
+              <input type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
+            </div>  
+            
+            <button type="submit">Submit</button>
+          </form>
+          
+          <!-- throw in conditional rendering for premium/admin users -->
+          
+          <h4>Remove collaborator</h4>
+          
+          <form action="/users/collaborator/destroy" method="post">
+            
+            <div>
+              <label for="wikiTitle">Wiki title</label>
+              <input type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
+            </div>  
+            <div>
+              <label for="userName">User name</label>
+              <input type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
+            </div>  
+            
+            <button type="submit">Submit</button>
+          </form>
+        <% } %>
+      </div>
+      <!-- throw in conditional rendering for users who have collab wikis -->
+      <div>
+        <h2>Your collaborative wikis:</h2>
+        <% result.collabWikis.forEach((collabWiki) => { %>
+          <li>
+            <a href="/wikis/<%= collabWiki.Wiki.wikiId%>"><%= collabWiki.Wiki.title %></a>
+          </li>
+        <% }) %>
+      </div>
+    </main>
+  </body>
+</html>

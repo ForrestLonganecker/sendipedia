@@ -1,5 +1,6 @@
 const User = require('./models').User;
 const Wiki = require('./models').Wiki;
+const Collaborator = require('./models').Collaborator;
 const bcrypt = require('bcryptjs');
 
 module.exports = {
@@ -29,19 +30,18 @@ module.exports = {
         result["user"] = user;
         Wiki.scope({method: ["allOwnedPrivate", id]}).findAll()
         .then((wikis) => {
-          result["wikis"] = wikis;
+          result["privateWikis"] = wikis;
 
           Collaborator.scope({method: ["allCollabWikis", id]}).findAll()
           .then((collaborators) => {
-            
-            // do something with array of collaborator objects
+            result["collabWikis"] = collaborators
+            callback(null, result);
+            // can insert scope for associated items here
           })
-          callback(null, result);
+          .catch((err) => {
+            callback(err);
+          });
         })
-        .catch((err) => {
-          callback(err);
-        });
-        // can insert scope for associated items here
       }
     });
   },

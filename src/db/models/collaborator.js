@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
 
     Collaborator.addScope('allCollabWikis', (userId) => {
       return {
+        include: [{
+          model: models.Wiki
+        }],
         where: { userId: userId },
         order: [['createdAt', 'DESC']]
       }
