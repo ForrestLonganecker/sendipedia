@@ -6,23 +6,49 @@
 
   <body>
     <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/userCard.ejs %>
+
 
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
 
-      <h1>Wikis</h1>
+      <h1>Public wikis</h1>
 
         <% if(currentUser) { %>
           <a href="/wikis/new">New</a>
         <% } %>
 
       <ul>
-        <% wikis.forEach((wiki) => { %>
+        <% result.publicWikis.forEach((wiki) => { %>
           <li>
             <a href="/wikis/<%= wiki.id%>"><%= wiki.title %></a>
           </li>
         <% }) %>
       </ul>
+
+      <% if(currentUser && result.privateWikis.length != 0){ %>
+        <h1>Private wikis</h1>
+  
+        <ul>
+          <% result.privateWikis.forEach((wiki) => { %>
+            <li>
+              <a href="/wikis/<%= wiki.id%>"><%= wiki.title %></a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+
+      <% if(currentUser && result.collabWikis.length != 0){ %>
+        <h1>Collaborative wikis</h1>
+
+        <ul>
+          <% result.collabWikis.forEach((wiki) => { %>
+            <li>
+              <a href="/wikis/<%= wiki.Wiki.wikiId%>"><%= wiki.Wiki.title %></a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %> 
       
     </main>
   </body>

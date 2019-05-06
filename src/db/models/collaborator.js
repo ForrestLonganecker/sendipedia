@@ -31,6 +31,16 @@ module.exports = (sequelize, DataTypes) => {
         order: [['createdAt', 'DESC']]
       }
     });
+
+    Collaborator.addScope('allCollabUsers', (wikiId) => {
+      return {
+        include: [{
+          model: models.User
+        }],
+        where: { wikiId: wikiId },
+        order: [['createdAt', 'DESC']]
+      }
+    });
   };
   return Collaborator;
 };

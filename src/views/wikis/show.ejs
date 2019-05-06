@@ -6,32 +6,46 @@
 
   <body>
     <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/userCard.ejs %>
+
 
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
 
-      <h1><%- wiki.title %></h1>
-      <h2><%= wiki.private ? 'Private' : 'Public' %></h2>
-      <% if(currentUser && (currentUser.isAdmin() || currentUser.isPremiumOwner(wiki.userId))){ %>
-        <form style="display:initial" action="/wikis/<%= wiki.id %>/<%= wiki.private ? 'makePublic' : 'makePrivate' %>" method="post">
-          <button type="submit"><%= wiki.private ? 'Make Public' : 'Make Private' %></button>
+      <h1><%- result.wiki.title %></h1>
+      <h4><%= result.wiki.private ? 'Private' : 'Public' %> wiki</h4>
+
+      <% if(result.collabUsers.length != 0){ %>
+        <h5>Collaborators:</h5>
+
+        <% result.collabUsers.forEach((user) => { %>
+          <li><%= user.User.name %></li>
+        <% }) %>
+
+      <% } %>
+
+      <% if(currentUser && (currentUser.isAdmin() || currentUser.isPremiumOwner(result.wiki.userId))){ %>
+        <form style="display:initial" action="/wikis/<%= result.wiki.id %>/<%= result.wiki.private ? 'makePublic' : 'makePrivate' %>" method="post">
+          <button type="submit"><%= result.wiki.private ? 'Make Public' : 'Make Private' %></button>
         </form>
+
+        <a href="/collaborators/edit">Edit collaborators</a>
       <% } %>
       
       <a href="/wikis">Back</a>
 
-      <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(wiki.userId))){ %>
-        <a href="/wikis/<%= wiki.id %>/edit">Edit</a>
+      <% if(currentUser){ %>
+        <a href="/wikis/<%= result.wiki.id %>/edit">Edit</a>
       <% } %>
         
         
-      <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(wiki.userId))){ %>
-        <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
+      <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(result.wiki.userId))){ %>
+        <form style="display:initial" action="/wikis/<%= result.wiki.id %>/destroy" method="post">
           <button type="submit">Delete</button>
         </form>
       <% } %>
           
-      <p><%- wiki.body %></p>
+      <p><%- result.wiki.body %></p>
     </main>
   </body>
 </html>

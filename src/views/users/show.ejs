@@ -6,6 +6,7 @@
 
   <body>
     <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/userCard.ejs %>
 
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
@@ -18,51 +19,15 @@
       <!-- throw in conditional rendering for premium/admin users -->
       <div>
         <h2>Your private wikis:</h2>
+        <a href="/collaborators/edit">Edit collaborators</a>
         <% result.privateWikis.forEach((privateWiki) => { %>
           <li>
-            <a href="/wikis/<%= result.privateWikis.id%>"><%= privateWiki.title %></a>
+            <a href="/wikis/<%= privateWiki.id%>"><%= privateWiki.title %></a>
           </li>
         <% }) %>
       </div>
         
-        <!-- throw in conditional rendering for premium/admin users -->
-      <div>
-        <% if(currentUser.isPremium() || currentUser.isAdmin()){ %>
 
-          <h4>Add collaborator</h4>
-        
-          <form action="/users/collaborator/create" method="post">
-            <div>
-              <label for="wikiTitle">Wiki title</label>
-              <input type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
-            </div>  
-            <div>
-              <label for="userName">User name</label>
-              <input type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
-            </div>  
-            
-            <button type="submit">Submit</button>
-          </form>
-          
-          <!-- throw in conditional rendering for premium/admin users -->
-          
-          <h4>Remove collaborator</h4>
-          
-          <form action="/users/collaborator/destroy" method="post">
-            
-            <div>
-              <label for="wikiTitle">Wiki title</label>
-              <input type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
-            </div>  
-            <div>
-              <label for="userName">User name</label>
-              <input type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
-            </div>  
-            
-            <button type="submit">Submit</button>
-          </form>
-        <% } %>
-      </div>
       <!-- throw in conditional rendering for users who have collab wikis -->
       <div>
         <h2>Your collaborative wikis:</h2>

@@ -1,27 +1,39 @@
-<% include ../static/partials/head.ejs %>
-<h2>Welcome to Sendipedia</h2>
-<a href="/">Home</a>
-<% include ../static/partials/messages.ejs %>
-<div>
-    <div>
-        <form method="POST" action="/users">
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" name="name" placeholder="Enter Name" />
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" name="email" placeholder="Enter Email" />
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" name="password" placeholder="Enter Password" />
-            </div>
-            <div>
-                <label for="passwordConfirmation">Confirm Password:</label>
-                <input type="password" name="passwordConfirmation" placeholder="Confirm Password" />
-            </div><br />
-            <input type="submit" value="Sign Up" />
-        </form>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+
+    <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/userCard.ejs %>
+
+    <main>
+
+      <% include ../static/partials/messages.ejs %>
+
+      <h1>Sign up</h1>
+
+      <form method="POST" action="/users">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" placeholder="Enter Name" />
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="Enter Email" />
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Enter Password" />
+        </div>
+        <div>
+            <label for="passwordConfirmation">Confirm Password:</label>
+            <input type="password" name="passwordConfirmation" placeholder="Confirm Password" />
+        </div><br />
+        <button type="submit" >Sign up</button>
+    </form>
+
+    </main>
+  </body>
+</html>

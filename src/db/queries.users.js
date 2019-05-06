@@ -29,12 +29,12 @@ module.exports = {
       } else {
         result["user"] = user;
         Wiki.scope({method: ["allOwnedPrivate", id]}).findAll()
-        .then((wikis) => {
-          result["privateWikis"] = wikis;
+        .then((ownedPrivateWikis) => {
+          result["privateWikis"] = ownedPrivateWikis;
 
           Collaborator.scope({method: ["allCollabWikis", id]}).findAll()
-          .then((collaborators) => {
-            result["collabWikis"] = collaborators
+          .then((collaboratorWikis) => {
+            result["collabWikis"] = collaboratorWikis;
             callback(null, result);
             // can insert scope for associated items here
           })

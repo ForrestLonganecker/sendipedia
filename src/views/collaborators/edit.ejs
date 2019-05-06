@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/userCard.ejs %>
+    
+    <main class="main-container">
+      <% include ../static/partials/messages.ejs %>
+
+      
+      <div>
+        <% if(currentUser.isPremium() || currentUser.isAdmin()){ %>
+    
+          <h4>Add collaborator</h4>
+        
+          <form action="/collaborators/create" method="post">
+            <div>
+              <label for="wikiTitle">Wiki title</label>
+              <input type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
+            </div>  
+            <div>
+              <label for="userName">User name</label>
+              <input type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
+            </div>  
+            
+            <button type="submit">Submit</button>
+          </form>
+                      
+          <h4>Remove collaborator</h4>
+          
+          <form action="/collaborators/destroy" method="post">
+            
+            <div>
+              <label for="wikiTitle">Wiki title</label>
+              <input type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
+            </div>  
+            <div>
+              <label for="userName">User name</label>
+              <input type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
+            </div>  
+            
+            <button type="submit">Submit</button>
+          </form>
+        <% } %>
+      </div>
+    </main>
+  </body>
+</html>

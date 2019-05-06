@@ -5,7 +5,6 @@ const Authorizer = require('../policies/collaborator');
 
 module.exports = {
   createCollaborator(req, callback){
-    console.log('{QUERY 1} REQ.BODY: ', req.body.userName, req.body.wikiTitle);
     // const authorized = new Authorizer(req.user, collaborator).create();
     // console.log('{QUERY 2} AUTHORIZED: ', authorized);
     let wikiId;
@@ -13,12 +12,10 @@ module.exports = {
     // if(authorized){
       Wiki.findOne({where: {title: req.body.wikiTitle}})
       .then((wiki) => {
-        console.log('{QUERY 3} WIKI: ', wiki);
         wikiId = wiki.id;
         
         User.findOne({where: {name: req.body.userName}})
         .then((user) => {
-          console.log('{QUERY 4} USER: ', user);
           userId = user.id
           
           return Collaborator.create({
@@ -26,11 +23,9 @@ module.exports = {
             userId: userId
           })
           .then((collaborator) => {
-            console.log('{QUERY 5} SUCCESS: ', collaborator);
             callback(null, collaborator);
           })
           .catch((err) => {
-            console.log('{QUERY 6} FAILIURE: ', err);
             callback(err);
           });
         });
@@ -63,8 +58,8 @@ module.exports = {
             return callback('Collaborator not found');
           }
     
-          const authorized = new Authorizer(req.user, collaborator).destroy();
-          if(authorized){
+          // const authorized = new Authorizer(req.user, collaborator).destroy();
+          // if(authorized){
             Collaborator.destroy({ 
               where: {
                 wikiId: wikiId,
@@ -77,10 +72,10 @@ module.exports = {
             .catch((err) => {
               callback(err);
             });
-          } else {
-            req.flash('notice', 'you are not authorized to do that.')
-            callback(401);
-          }
+          // } else {
+          //   req.flash('notice', 'you are not authorized to do that.')
+          //   callback(401);
+          // }
         })
         .catch((err) => {
           callback(err);
