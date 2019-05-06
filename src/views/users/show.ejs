@@ -11,32 +11,30 @@
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
 
-      <h1><%= result.user.name %></h1>
-      <h2>current account status:</h2>
-      <h3><%= result.user.role %></h3>
-
       <a href="/users/<%= result.user.id %>/upgrade">Edit account</a>
-      <!-- throw in conditional rendering for premium/admin users -->
-      <div>
-        <h2>Your private wikis:</h2>
-        <a href="/collaborators/edit">Edit collaborators</a>
-        <% result.privateWikis.forEach((privateWiki) => { %>
-          <li>
-            <a href="/wikis/<%= privateWiki.id%>"><%= privateWiki.title %></a>
-          </li>
-        <% }) %>
-      </div>
-        
 
-      <!-- throw in conditional rendering for users who have collab wikis -->
-      <div>
-        <h2>Your collaborative wikis:</h2>
-        <% result.collabWikis.forEach((collabWiki) => { %>
-          <li>
-            <a href="/wikis/<%= collabWiki.Wiki.wikiId%>"><%= collabWiki.Wiki.title %></a>
-          </li>
-        <% }) %>
-      </div>
+      <% if(result.privateWikis.length != 0){ %>
+        <div>
+          <h2>Your private wikis:</h2>
+          <a href="/collaborators/edit">Edit collaborators</a>
+          <% result.privateWikis.forEach((privateWiki) => { %>
+            <li>
+              <a href="/wikis/<%= privateWiki.id%>"><%= privateWiki.title %></a>
+            </li>
+          <% }) %>
+        </div>
+      <% } %>
+        
+      <% if(result.collabWikis.length != 0){ %>
+        <div>
+          <h2>Your collaborative wikis:</h2>
+          <% result.collabWikis.forEach((collabWiki) => { %>
+            <li>
+              <a href="/wikis/<%= collabWiki.Wiki.wikiId%>"><%= collabWiki.Wiki.title %></a>
+            </li>
+          <% }) %>
+        </div>
+      <% } %>
     </main>
   </body>
 </html>

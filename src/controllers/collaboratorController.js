@@ -11,20 +11,23 @@ module.exports = {
     }
   },
   create(req, res, next){
-    // add logic to locate preexisting or if there is even a wiki/user
     if(req.user){
       collaboratorQueries.createCollaborator(req, (err, collaborator) => {
         if(err){
           req.flash('error', err);
+          res.redirect(req.headers.referer);
+        } else {
+          req.flash('notice', `You have successfully added ${req.body.userName} to ${req.body.wikiTitle}!`);
+          res.redirect(req.headers.referer);
         }
       });
     } else {
       req.flash('notice', 'You must be a premium user to do that.');
+      res.redirect('/');
     }
-    req.flash('notice', `You have successfully added ${req.body.userName} to ${req.body.wikiTitle}!`);
-    res.redirect(req.headers.referer);
   },
   destroy(req, res, next){
+    // add logic to locate preexisting or if there is even a wiki/user
     if(req.user){
       collaboratorQueries.deleteCollaborator(req, (err, collaborator) => {
         if(err){
@@ -33,9 +36,9 @@ module.exports = {
           req.flash('notice', `You have removed ${req.body.userName} from ${req.body.wikiTitle}.`);
           res.redirect(req.headers.referer);
         });
-      } else {
-        req.flash('notice', 'You must be a premium member to do that');
-        res.redirect(req.headers.referer);
-      }
+    } else {
+      req.flash('notice', 'You must be a premium member to do that');
+      res.redirect('/');
+    }
   },
 }
