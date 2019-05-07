@@ -6,34 +6,36 @@ const markdown = require('markdown').markdown;
 module.exports = {
   getAllWikis(req, callback){
     let result = {};
-    Wiki.findAll({where: {private: false}})
-    .then((publicWikis) => {
-      result["publicWikis"] = publicWikis;
-
-      Wiki.scope({method: ["allOwnedPrivate", req.user.id]}).findAll()
-      .then((ownedPrivateWikis) => {
-        result["privateWikis"] = ownedPrivateWikis;
+    if(req.user){
+      Wiki.findAll({where: {private: false}})
+      .then((publicWikis) => {
+        result["publicWikis"] = publicWikis;
         
-        Collaborator.scope({method: ['allCollabWikis', req.user.id]}).findAll()
-        .then((collaborativeWikis) => {
-          result["collabWikis"] = collaborativeWikis;
-          callback(null, result);
-          // can insert more associations here
-        })
-        .catch((err) => {
-          callback(err);
+        Wiki.scope({method: ["allOwnedPrivate", req.user.id]}).findAll()
+        .then((ownedPrivateWikis) => {
+          result["privateWikis"] = ownedPrivateWikis;
+          
+          Collaborator.scope({method: ['allCollabWikis', req.user.id]}).findAll()
+          .then((collaborativeWikis) => {
+            result["collabWikis"] = collaborativeWikis;
+            callback(null, result);
+            // can insert more associations here
+          })
+          .catch((err) => {
+            callback(err);
+          });
         });
       });
-    });
-  },
-  getAllPublicWikis(callback){
-    return Wiki.findAll({where: {private: false}})
-    .then((wikis) => {
-      callback(null, wikis);
-    })
-    .catch((err) => {
-      callback(err);
-    })
+    } else {
+      Wiki.findAll({where: {private: false}})
+      .then((publicWikis) => {
+        result["publicWikis"] = publicWikis;
+        callback(null, result);
+      })
+      .catch((err) => {
+        callback(err);
+      });
+    }
   },
   getWiki(id, callback){
     let result = {};
