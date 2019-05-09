@@ -30,7 +30,7 @@
           <h2>Your collaborative wikis:</h2>
           <% result.collabWikis.forEach((collabWiki) => { %>
             <li>
-              <a href="/wikis/<%= collabWiki.Wiki.wikiId%>"><%= collabWiki.Wiki.title %></a>
+              <a href="/wikis/<%= collabWiki.wikiId%>"><%= collabWiki.title %></a>
             </li>
           <% }) %>
         </div>
