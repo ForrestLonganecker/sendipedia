@@ -78,14 +78,14 @@ module.exports = {
     }
   },
   show(req, res, next){
-    if(req.user){
+    // if(req.user){
       wikiQueries.getWiki(req, (err, result) => {
         if(err || result.wiki == undefined){
           res.redirect(404, '/wikis');
         } else {
           const authorized = new Authorizer(req.user, result.wiki).show();
           
-          if(authorized){
+          if(authorized || !result.wiki.private){
             res.render('wikis/show', {result});
           } else {
             req.flash('notice', 'You are not authorized to do that');
@@ -93,15 +93,15 @@ module.exports = {
           }
         }
       });
-    } else {
-      wikiQueries.getPublicWiki(req, (err, result) => {
-        if(err || result.wiki == undefined || result.wiki.private){
-          res.redirect(404, '/wikis');
-        } else {
-          res.render('wikis/show', {result});
-        }
-      });
-    }
+    // } else {
+    //   wikiQueries.getPublicWiki(req, (err, result) => {
+    //     if(err || result.wiki == undefined || result.wiki.private){
+    //       res.redirect(404, '/wikis');
+    //     } else {
+    //       res.render('wikis/show', {result});
+    //     }
+    //   });
+    // }
   },
   destroy(req, res, next){
     wikiQueries.deleteWiki(req, (err, wiki) => {
@@ -112,17 +112,15 @@ module.exports = {
       }
     });
   },
-  edit(req, res, next){
-    //need to do the same that show does with spliting req.user/else
-
-    if(req.user){
+  edit(req, res, next){ 
+    // if(req.user){
       wikiQueries.getWiki(req, (err, result) => {
         if(err || result.wiki == undefined){
           res.redirect(404, `/wikis/${req.params.id}`);
         } else {
           const authorized = new Authorizer(req.user, result.wiki).edit();
   
-          if(authorized){
+          if(authorized || (!result.wiki.private && req.user)){
               res.render('wikis/edit', {result});
           } else {
             req.flash('notice', 'You are not authorized to do that.');
@@ -130,17 +128,15 @@ module.exports = {
           }
         }
       });
-    } else {
-      wikiQueries.getPublicWiki(req, (err, result) => {
-        if(err, result.wiki == undefined || result.wiki.private){
-          res.redirect(404, '/wikis');
-        } else {
-          res.render('wikis/show', {result});
-        }
-      })
-
-    }
-
+    // } else {
+    //   wikiQueries.getPublicWiki(req, (err, result) => {
+    //     if(err, result.wiki == undefined || result.wiki.private){
+    //       res.redirect(404, '/wikis');
+    //     } else {
+    //       res.render('wikis/show', {result});
+    //     }
+    //   })
+    // }
   },
   update(req, res, next){
     wikiQueries.updateWiki(req, req.body, (err, wiki) => {

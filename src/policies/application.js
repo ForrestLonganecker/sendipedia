@@ -21,9 +21,9 @@ module.exports = class ApplicationPolicy {
   }
 
   _isCollaborator(){
-    // console.log('{POLICIES 1 } THIS.RECORD: ', this.record.collaborators);
+    console.log('{POLICIES 1 } THIS.RECORD: ', this.record.collaborators);
     return this.user && this.record.collaborators && this.record.collaborators.find((collaborator) => {
-      // console.log('{POLICIES 2} COLLABID == USERID: ', collaborator.userId == this.user.id);
+      console.log('{POLICIES 2} COLLABID == USERID: ', collaborator.userId == this.user.id);
       return collaborator.userId == this.user.id
     });
   }

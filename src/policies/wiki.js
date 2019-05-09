@@ -11,6 +11,6 @@ module.exports = class WikiPolicy extends ApplicationPolicy {
   }
 
   update(){
-    return this.edit();
+    return this.edit() ||  this._isPublic();
   }
 }
