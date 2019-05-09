@@ -20,6 +20,18 @@ module.exports = class ApplicationPolicy {
     return this._isPremium() && this._isOwner();
   }
 
+  _isCollaborator(){
+    // console.log('{POLICIES 1 } THIS.RECORD: ', this.record.collaborators);
+    return this.user && this.record.collaborators && this.record.collaborators.find((collaborator) => {
+      // console.log('{POLICIES 2} COLLABID == USERID: ', collaborator.userId == this.user.id);
+      return collaborator.userId == this.user.id
+    });
+  }
+
+  _isPublic(){
+    return this.record.private == false;
+  }
+
   new(){
     return this.user != null;
   }

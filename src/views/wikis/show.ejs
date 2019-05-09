@@ -15,7 +15,7 @@
       <h1><%- result.wiki.title %></h1>
       <h4><%= result.wiki.private ? 'Private' : 'Public' %> wiki</h4>
 
-      <% if(result.collabUsers.length != 0){ %>
+      <% if(result.collabUsers && result.collabUsers.length != 0){ %>
         <h5>Collaborators:</h5>
 
         <% result.collabUsers.forEach((user) => { %>

@@ -4,13 +4,23 @@ const markdown = require("markdown").markdown;
 
 module.exports = {
   index(req, res, next){
-    wikiQueries.getAllWikis(req, (err, result) => {
-      if(err){
-        res.redirect(500, 'static/index');
-      } else {
-        res.render('wikis/index', {result});
-      }
-    })
+    if(req.user){
+      wikiQueries.getAllWikis(req, (err, result) => {
+        if(err){
+          res.redirect(500, 'static/index');
+        } else {
+          res.render('wikis/index', {result});
+        }
+      })
+    } else {
+      wikiQueries.getAllPublicWikis(req, (err, result) => {
+        if(err){
+          res.redirect(500, 'static/index');
+        } else {
+          res.render('wikis/index', {result});
+        }
+      })
+    }
   },
   new(req, res, next){
     const authorized = new Authorizer(req.user).new();
@@ -68,13 +78,30 @@ module.exports = {
     }
   },
   show(req, res, next){
-    wikiQueries.getWiki(req.params.id, (err, result) => {
-      if(err || result.wiki == undefined){
-        res.redirect(404, '/');
-      } else {
-        res.render('wikis/show', {result});
-      }
-    });
+    if(req.user){
+      wikiQueries.getWiki(req, (err, result) => {
+        if(err || result.wiki == undefined){
+          res.redirect(404, '/wikis');
+        } else {
+          const authorized = new Authorizer(req.user, result.wiki).show();
+          
+          if(authorized){
+            res.render('wikis/show', {result});
+          } else {
+            req.flash('notice', 'You are not authorized to do that');
+            res.redirect('/wikis')
+          }
+        }
+      });
+    } else {
+      wikiQueries.getPublicWiki(req, (err, result) => {
+        if(err || result.wiki == undefined || result.wiki.private){
+          res.redirect(404, '/wikis');
+        } else {
+          res.render('wikis/show', {result});
+        }
+      });
+    }
   },
   destroy(req, res, next){
     wikiQueries.deleteWiki(req, (err, wiki) => {
@@ -86,20 +113,34 @@ module.exports = {
     });
   },
   edit(req, res, next){
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
-      if(err || wiki == null){
-        res.redirect(404, `/`);
-      } else {
-        const authorized = new Authorizer(req.user, wiki).edit();
+    //need to do the same that show does with spliting req.user/else
 
-        if(authorized){
-            res.render('wikis/edit', {wiki});
+    if(req.user){
+      wikiQueries.getWiki(req, (err, result) => {
+        if(err || result.wiki == undefined){
+          res.redirect(404, `/wikis/${req.params.id}`);
         } else {
-          req.flash('notice', 'You are not authorized to do that.');
-          res.redirect(`/wikis/${req.params.id}`);
+          const authorized = new Authorizer(req.user, result.wiki).edit();
+  
+          if(authorized){
+              res.render('wikis/edit', {result});
+          } else {
+            req.flash('notice', 'You are not authorized to do that.');
+            res.redirect(`/wikis/${req.params.id}`);
+          }
         }
-      }
-    });
+      });
+    } else {
+      wikiQueries.getPublicWiki(req, (err, result) => {
+        if(err, result.wiki == undefined || result.wiki.private){
+          res.redirect(404, '/wikis');
+        } else {
+          res.render('wikis/show', {result});
+        }
+      })
+
+    }
+
   },
   update(req, res, next){
     wikiQueries.updateWiki(req, req.body, (err, wiki) => {

@@ -14,16 +14,16 @@
 
       <h1>Edit Wiki</h1>
 
-      <a href="/wikis/<%= wiki.id %>">Back</a>
+      <a href="/wikis/<%= result.wiki.id %>">Back</a>
 
-      <form action="/wikis/<%= wiki.id %>/update" method="post">
+      <form action="/wikis/<%= result.wiki.id %>/update" method="post">
         <div>
           <label for="title">Wiki title</label>
-          <input value="<%= wiki.title %>" type="text" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
+          <input value="<%= result.wiki.title %>" type="text" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
         </div>  
         <div>
           <label for="body">Wiki body</label>
-          <textarea rows="4" name="body" aria-describedby="bodyHelp" placeholder="Enter Body"><%= wiki.body %></textarea>
+          <textarea rows="4" name="body" aria-describedby="bodyHelp" placeholder="Enter Body"><%= result.wiki.body %></textarea>
         </div>  
         <button type="submit">Update</button>
       </form>

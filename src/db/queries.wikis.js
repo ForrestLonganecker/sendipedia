@@ -6,57 +6,78 @@ const markdown = require('markdown').markdown;
 module.exports = {
   getAllWikis(req, callback){
     let result = {};
-    if(req.user){
-      Wiki.findAll({where: {private: false}})
-      .then((publicWikis) => {
-        result["publicWikis"] = publicWikis;
+    Wiki.findAll({where: {private: false}})
+    .then((publicWikis) => {
+      result["publicWikis"] = publicWikis;
+      
+      Wiki.scope({method: ["allOwnedPrivate", req.user.id]}).findAll()
+      .then((ownedPrivateWikis) => {
+        result["privateWikis"] = ownedPrivateWikis;
         
-        Wiki.scope({method: ["allOwnedPrivate", req.user.id]}).findAll()
-        .then((ownedPrivateWikis) => {
-          result["privateWikis"] = ownedPrivateWikis;
-          
-          Collaborator.scope({method: ['allCollabWikis', req.user.id]}).findAll()
-          .then((collaborativeWikis) => {
-            result["collabWikis"] = collaborativeWikis;
-            callback(null, result);
-            // can insert more associations here
-          })
-          .catch((err) => {
-            callback(err);
-          });
+        Collaborator.scope({method: ['allCollabWikis', req.user.id]}).findAll()
+        .then((collaborativeWikis) => {
+          result["collabWikis"] = collaborativeWikis;
+          // can insert more associations here
+          callback(null, result);
+        })
+        .catch((err) => {
+          callback(err);
         });
       });
+    });
+  },
+  getAllPublicWikis(req, callback){
+    let result = {};
+    return Wiki.findAll({where: {private: false}})
+    .then((publicWikis) => {
+      result["publicWikis"] = publicWikis
+      callback(null, result);
+    })
+    .catch((err) => {
+      callback(err);
+    })
+  },
+  getPublicWiki(req, callback){
+    let result = {};
+    Wiki.findByPk(req.params.id)
+    .then((wiki) => {
+      if(!wiki){
+        callback(404);
+      } else {
+        result["wiki"] = wiki;
+        callback(null, result);
+      }
+    })
+    .catch((err) => {
+      callback(err);
+    })
+  },
+  getWiki(req, callback){
+    let result = {};
+    Wiki.findByPk(req.params.id, {
+      include: [
+        {model: Collaborator, as: 'collaborators'}
+      ]}
+    )
+    .then((wiki) => {
+    if(!wiki){
+      callback(404);
     } else {
-      Wiki.findAll({where: {private: false}})
-      .then((publicWikis) => {
-        result["publicWikis"] = publicWikis;
+      result["wiki"] = wiki;
+      
+      Collaborator.scope({method: ['allCollabUsers', (wiki.id)]}).findAll()
+      .then((collaboratorUsers) => {
+        result["collabUsers"] = collaboratorUsers;
         callback(null, result);
       })
       .catch((err) => {
         callback(err);
       });
     }
-  },
-  getWiki(id, callback){
-    let result = {};
-    Wiki.findByPk(id)
-    .then((wiki) => {
-      if(!wiki){
-        callback(404);
-      } else {
-        result["wiki"] = wiki;
-
-        Collaborator.scope({method: ['allCollabUsers', (id)]}).findAll()
-        .then((collaboratorUsers) => {
-          result["collabUsers"] = collaboratorUsers;
-          callback(null, result);
-          // can insert scope for associated items here
-        })
-        .catch((err) => {
-          callback(err);
-        });
-      }
-    });
+  })
+  .catch((err) => {
+      callback(err);
+    })
   },
   addWiki(newWiki, callback){
     return Wiki.create({

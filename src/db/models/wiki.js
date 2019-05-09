@@ -34,9 +34,13 @@ module.exports = (sequelize, DataTypes) => {
       order: [["createdAt", "DESC"]]
     }
   });
-  
+
   Wiki.prototype.getCollaboratorFor = function(userId){
     return this.collaborators.find((collaborator) => { return collaborator.userId == userId})
+  };
+
+  Wiki.prototype.isOwner = function(userId){
+    return this.userId == userId
   };
 
   return Wiki;
