@@ -37,21 +37,6 @@ module.exports = {
       callback(err);
     })
   },
-  // getPublicWiki(req, callback){
-  //   let result = {};
-  //   Wiki.findByPk(req.params.id)
-  //   .then((wiki) => {
-  //     if(!wiki){
-  //       callback(404);
-  //     } else {
-  //       result["wiki"] = wiki;
-  //       callback(null, result);
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     callback(err);
-  //   })
-  // },
   getWiki(req, callback){
     let result = {};
     Wiki.findByPk(req.params.id, {
@@ -120,13 +105,11 @@ module.exports = {
     })
     .then((wiki) => {
       if(!wiki){
-        console.log('{QUERY 1} !WIKI: ', wiki);
         return callback('Wiki not found');
       }
 
       const authorized = new Authorizer(req.user, wiki).update();
 
-      console.log('{QUERY 2} AUTHORIZED: ', authorized);
       if(authorized){
         wiki.update({
           title: updatedWiki.title, 
@@ -135,15 +118,12 @@ module.exports = {
           {where: {id: req.params.id}}
         )
         .then(() => {
-          console.log('{QUERY 3} SUCCESS: ', wiki);
           callback(null, wiki);
         })
         .catch((err) => {
-          console.log('{QUERY 4} CATCH ERR: ', err);
           callback(err);
         });
       } else {
-        console.log('{QUERY 5} NOT AUTHORIZED');
         req.flash('notice', 'You are not authorized to do that.');
         callback('Forbidden');
       }
