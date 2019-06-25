@@ -4,6 +4,10 @@ body {
   background-color: rgb(192, 215, 247);
 }
 
+.bold {
+  font-family: 'Rubik Mono One', sans-serif;
+}
+
 .nav-container {
   margin: auto;
   margin-bottom: 5px;
@@ -67,6 +71,7 @@ body {
 
 .wrapper-container {
   display: flex;
+  width: 100%;
 }
 
 .user-info {
@@ -88,8 +93,51 @@ body {
 
 
 .main-container {
+  width: 70%;
   text-align: center;
   padding: 5px;
+}
+
+.sendipedia {
+  font-size: 1.25em;
+}
+
+.landing-options-container {
+  margin: auto;
+  margin-bottom: 10px;
+  border: solid;
+  width: 85%;
+  padding: 10px;
+  background-color: beige;
+}
+
+.landing-link {
+  border-radius: 3px;
+  padding: 5px;
+  height: 30px;
+  width: 65px;
+  margin: 3px;
+}
+
+.landing-link:link, .landing-link:visited {
+  text-decoration: none;
+  color: white;
+  background-color: rgb(0, 122, 0);
+}
+
+.landing-link:hover, .landing-link:active {
+  color: black;
+  border: solid;
+  background-color: rgb(152, 194, 248);
+}
+
+.landing-content-container {
+  margin: auto;
+  border: solid;
+  width: 85%;
+  padding: 10px;
+  background-color: beige;
+  margin-bottom: 10px;
 }
 
 /* * {
