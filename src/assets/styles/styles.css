@@ -11,7 +11,7 @@ body {
 .nav-container {
   margin: auto;
   margin-bottom: 5px;
-  max-width: 90%;
+  width: 90%;
   border: 2px solid rgb(0, 122, 0);
   background-color: beige;
   border-radius: 2px;
@@ -69,43 +69,31 @@ body {
   background-color: rgb(152, 194, 248);
 }
 
-.wrapper-container {
-  display: flex;
-  width: 100%;
-}
-
-.user-info {
-  /* border-right: solid rgb(0, 122, 0) 2px;; */
-  width: 30%;
-  text-align: center;
-  margin-right: 5px;
-}
-
-.user-card-container {
-  padding: 5px;
-}
-
-.user-card-container > p {
-  width: 90%;
-  border: solid rgb(0, 122, 0) 2px;
-  padding: 5px;
-  background-color: beige;
-}
-
-
 .main-container {
-  width: 70%;
+  width: 90%;
   text-align: center;
   padding: 5px;
+  margin: auto;
 }
 
+.options-title-container {
+  margin: auto;
+  background-color: beige;
+  width: 100%;
+  border: solid 2px;
+  margin-bottom: 10px;
+}
+
+.options-title-container > p {
+  padding: 3px;
+}
+  
 .landing-options-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   margin: auto;
   margin-bottom: 10px;
-  border: solid 2px;
   width: 85%;
   height: 50px;
   padding: 3px;
@@ -138,11 +126,35 @@ body {
 .landing-content-container {
   margin: auto;
   border: solid 2px;
-  width: 85%;
+  width: 99%;
   padding: 3px;
   background-color: beige;
   margin-bottom: 10px;
 }
+
+/* .wrapper-container {
+  margin: auto;
+  display: flex;
+  width: 90%;
+}
+
+.user-info {
+  width: 30%;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.user-card-container {
+  padding: 5px;
+}
+
+.user-card-container > p {
+  width: 95%;
+  border: solid rgb(0, 122, 0) 2px;
+  padding: 8px;
+  background-color: beige;
+  margin-top: 0;
+} */
 
 /* * {
   font-family: 'Raleway', sans-serif;

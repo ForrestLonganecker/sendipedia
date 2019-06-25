@@ -7,19 +7,17 @@
   <body>
     <% include ./partials/navbar.ejs %>
 
-    <div class="wrapper-container">
+    <!-- <div class="wrapper-container"> -->
 
-      <aside class="user-info">
+      <!-- <aside class="user-info">
         <% include ./partials/userCard.ejs %>
         <% include ./partials/messages.ejs %>
-      </aside>
-
-      <div class="line"></div>
+      </aside> -->
 
       <main class="main-container">
 
-        <div>
-          <p class="bold">~*Sendipedia*~</p>
+        <div class="options-title-container">
+          <p class="bold">Sendipedia</p>
           <p>The place to document mountains and rocks, anything climbing.</p>
           <div class="landing-options-container">
             <% if(currentUser) { %>   
@@ -55,6 +53,6 @@
           </section>
         </section>
       </main>
-    </div>
+    <!-- </div> -->
   </body>
 </html>
