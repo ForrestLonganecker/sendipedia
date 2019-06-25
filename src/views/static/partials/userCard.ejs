@@ -3,4 +3,8 @@
     <p class="user-greeting" >Welcome, <%= currentUser.name %>!</p>
     <p class="user-role">Account type: <%= currentUser.role %></p>
   </div>
+<% } else { %>
+  <div class="user-card-container">
+    <p class="user-greeting" >Sign in or create an account!</p>
+  </div>
 <% } %>
