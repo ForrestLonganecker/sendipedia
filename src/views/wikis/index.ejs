@@ -9,7 +9,7 @@
 
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
-      <div class="wiki-index-container">
+      <div class="wiki-container">
         <div class="public-new-container">
           <h3 class="bold">Public wikis</h3>
   
@@ -29,7 +29,7 @@
 
 
       <% if(currentUser && result.privateWikis.length != 0){ %>
-        <div class="wiki-index-container">
+        <div class="wiki-container">
           <h3 class="bold">Private wikis</h3>
     
           <ul class="wiki-list">
@@ -43,7 +43,7 @@
       <% } %>
 
       <% if(currentUser && result.collabWikis.length != 0){ %>
-        <div class="wiki-index-container">
+        <div class="wiki-container">
           <h3 class="bold">Collaborative wikis</h3>
   
           <ul class="wiki-list">

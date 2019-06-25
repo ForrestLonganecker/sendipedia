@@ -109,6 +109,8 @@ body {
   height: 30px;
   width: 65px;
   margin: 3px;
+  background-color: rgb(0, 122, 0);
+  color: white;
 }
 
 .standard-link:link, .standard-link:visited {
@@ -132,7 +134,7 @@ body {
   margin-bottom: 10px;
 }
 
-.wiki-index-container {
+.wiki-container {
   margin: auto;
   border: solid 2px;
   width: 99%;
@@ -185,6 +187,90 @@ body {
   color: black;
   border: solid;
   background-color: rgb(152, 194, 248);
+}
+
+.new-wiki-form {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.new-wiki-back {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: auto;
+  border: solid 2px;
+  width: 99%;
+  padding: 3px;
+  background-color: beige;
+  margin-bottom: 10px;
+}
+
+.new-wiki-input {
+  width: 70%;
+}
+
+.new-wiki-input::placeholder {
+  color: grey;
+  text-align: center;
+  font-family: 'Rubik Mono One', sans-serif;
+}
+.wiki-input-label {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.wiki-input-container {
+  margin: auto;
+  width: 60%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.new-wiki-textarea {
+  margin: auto;
+  width: 60%;
+  height: 150px;
+  resize: none;
+}
+
+.new-wiki-textarea::placeholder {
+  color: grey;
+  text-align: center;
+  font-family: 'Rubik Mono One', sans-serif;
+}
+
+.wiki-radio-container {
+  margin-top: 20px;
+  margin: auto;
+  width: 60%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.standard-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  padding: 5px;
+  width: 40%;
+  background-color: rgb(0, 122, 0);
+  color: white;
+}
+
+.standard-button:hover, .standard-button:active {
+  color: black;
+  border: solid;
+  background-color: rgb(152, 194, 248);
+}
+
+.devider {
+  width: 20%;
 }
 
 /* .wrapper-container {

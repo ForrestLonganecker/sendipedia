@@ -6,34 +6,32 @@
 
   <body>
     <% include ../static/partials/navbar.ejs %>
-    <% include ../static/partials/userCard.ejs %>
-
 
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
 
-      <h1>New Wiki</h1>
+      <div class="new-wiki-back">
+        <h2 class="bold">New Wiki</h2>
+        <a class="standard-link" href="/wikis">Back</a>
+      </div>
 
-      <a href="/wikis">Back</a>
-
-      <form action="/wikis/<%= currentUser.isPremium() || currentUser.isAdmin() ? 'createPrivate' : 'create' %>" method="post">
-        <div>
-          <label for="title">Wiki title</label>
-          <input type="text" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
+      <form class="wiki-container new-wiki-form" action="/wikis/<%= currentUser.isPremium() || currentUser.isAdmin() ? 'createPrivate' : 'create' %>" method="post">
+        <label class="wiki-input-label bold" for="title">Wiki title</label>
+        <div class="wiki-input-container">
+          <input  class="new-wiki-input" type="text" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
         </div>  
-        <div>
-          <label for="body">Wiki body</label>
-          <input type="text" name="body" aria-describedby="bodyHelp" placeholder="Enter Body">
-        </div>  
+        <label class="wiki-input-label bold" for="body">Wiki body</label>
+        <textarea  class="new-wiki-textarea" type="text" name="body" aria-describedby="bodyHelp" placeholder="Enter Body"></textarea>
         <% if(currentUser.isPremium() || currentUser.isAdmin()){ %>
-          <div>
-            <label for="private">Make Wiki Private</label>
-            <input type="radio" name="private" value="true"> Private
-            <input type="radio" name="private" value="false" checked> Public
+          <label class="bold wiki-raido-label" for="private">Make Wiki Private</label>
+          <div class="wiki-radio-container radio-container">
+            <input class="wiki-radio checkmark" type="radio" name="private" value="true"> Private
+            <div class="devider"></div>
+            <input class="wiki-radio" type="radio" name="private" value="false" checked> Public
           </div>
         <% } %>
         
-        <button type="submit">Submit</button>
+        <button class="standard-button" type="submit">Create Wiki</button>
       </form>
 
     </main>
