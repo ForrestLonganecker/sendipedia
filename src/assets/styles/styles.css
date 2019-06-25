@@ -350,3 +350,7 @@ body {
   height: 300px;
   overflow-y: scroll;
 }
+
+.extra-margin-bot {
+  margin-bottom: 20px;
+}

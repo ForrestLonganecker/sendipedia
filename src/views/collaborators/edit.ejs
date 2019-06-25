@@ -6,7 +6,6 @@
 
   <body>
     <% include ../static/partials/navbar.ejs %>
-    <% include ../static/partials/userCard.ejs %>
     
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
@@ -15,36 +14,40 @@
       <div>
         <% if(currentUser.isPremium() || currentUser.isAdmin()){ %>
     
-          <h4>Add collaborator</h4>
-        
-          <form action="/collaborators/create" method="post">
-            <div>
-              <label for="wikiTitle">Wiki title</label>
-              <input type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
-            </div>  
-            <div>
-              <label for="userName">User name</label>
-              <input type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
-            </div>  
-            
-            <button type="submit">Submit</button>
-          </form>
-                      
-          <h4>Remove collaborator</h4>
+          <div class="wiki-container">
+            <h2 class="bold">Add collaborator</h4>
           
-          <form action="/collaborators/destroy" method="post">
+            <form class="extra-margin-bot" action="/collaborators/create" method="post">
+              <label class="wiki-input-label bold" for="wikiTitle">Wiki title</label>
+              <div class="wiki-input-container">
+                <input class="new-wiki-input" type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
+              </div>  
+              <label class="wiki-input-label bold" for="userName">User name</label>
+              <div class="wiki-input-container">
+                <input class="new-wiki-input" type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
+              </div>  
+              
+              <button class="standard-button" type="submit">Submit</button>
+            </form>
+          </div>
+             
+          
+          <div class="wiki-container">
+            <h2 class="bold">Remove collaborator</h4>
             
-            <div>
-              <label for="wikiTitle">Wiki title</label>
-              <input type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
-            </div>  
-            <div>
-              <label for="userName">User name</label>
-              <input type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
-            </div>  
-            
-            <button type="submit">Submit</button>
-          </form>
+            <form class="extra-margin-bot" action="/collaborators/destroy" method="post">
+              <label class="wiki-input-label" for="wikiTitle">Wiki title</label>
+              <div class="wiki-input-container">
+                <input class="new-wiki-input" type="text" name="wikiTitle" aria-describedby="titleHelp" placeholder="Enter Title">
+              </div>  
+              <label class="wiki-input-label" for="userName">User name</label>
+              <div class="wiki-input-container">
+                <input class="new-wiki-input" type="text" name="userName" aria-describedby="userHelp" placeholder="Enter User name">
+              </div>  
+              
+              <button class="standard-button" type="submit">Submit</button>
+            </form>
+          </div>
         <% } %>
       </div>
     </main>
