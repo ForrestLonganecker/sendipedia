@@ -1,29 +1,24 @@
 <nav class="nav-container">
-  <div class="logo-link">
-    <a href="/"><!--Sendipedia-->
-      <img src="/photos/mountain-logo.jpg" alt="Mountain logo">
-    </a>
-  </div>
   <ul class="nav-list">
-    <li>
-      <a href="/">Home</a>
+    <li class="nav-link-container">
+      <a class="nav-link" href="/">Home</a>
+
+      <a class="nav-link" href="/wikis">Wikis</a>
     </li>
-    <li>
-      <a href="/wikis">Wikis</a>
+    <li class="logo-image-container">
+      <img class="logo-image" src="/photos/mountain-logo.jpg" alt="Mountain logo">
     </li>
     <% if(currentUser) { %>   
-      <li>
-        <a href="/users/<%= currentUser.id %>">Account</a>
-      </li>
-      <li>
-          <a href="/users/signout">Sign out</a>
+      <li class="nav-link-container">
+        <a class="nav-link" href="/users/<%= currentUser.id %>">Account</a>
+
+        <a class="nav-link" href="/users/signout">Sign out</a>
       </li>
   <% } else { %>
-      <li>
-          <a href="/users/signup">Sign up</a>
-      </li>
-      <li>
-          <a href="/users/signin">Sign in</a>
+      <li class="nav-link-container">
+          <a class="nav-link" href="/users/signup">Sign up</a>
+
+          <a class="nav-link" href="/users/signin">Sign in</a>
       </li>
   <% } %>
   </ul>
