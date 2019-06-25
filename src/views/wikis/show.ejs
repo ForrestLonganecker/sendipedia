@@ -6,46 +6,53 @@
 
   <body>
     <% include ../static/partials/navbar.ejs %>
-    <% include ../static/partials/userCard.ejs %>
-
 
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
 
-      <h1><%- result.wiki.title %></h1>
-      <h4><%= result.wiki.private ? 'Private' : 'Public' %> wiki</h4>
-
-      <% if(result.collabUsers && result.collabUsers.length != 0){ %>
-        <h5>Collaborators:</h5>
-
-        <% result.collabUsers.forEach((user) => { %>
-          <li><%= user.User.name %></li>
-        <% }) %>
-
-      <% } %>
+      <div class="show-wiki-title">
+        <h3 class="bold"><%- result.wiki.title %></h1>
+        <h4><%= result.wiki.private ? 'Private' : 'Public' %> wiki</h4>
+        <a class="standard-link" href="/wikis">Back</a>
+      </div>
 
       <% if(currentUser && (currentUser.isAdmin() || currentUser.isPremiumOwner(result.wiki.userId))){ %>
-        <form style="display:initial" action="/wikis/<%= result.wiki.id %>/<%= result.wiki.private ? 'makePublic' : 'makePrivate' %>" method="post">
-          <button type="submit"><%= result.wiki.private ? 'Make Public' : 'Make Private' %></button>
-        </form>
+        <div class="show-wiki-title">
+          <form action="/wikis/<%= result.wiki.id %>/<%= result.wiki.private ? 'makePublic' : 'makePrivate' %>" method="post">
+            <button class="edit-wiki-button" type="submit"><%= result.wiki.private ? 'Make Public' : 'Make Private' %></button>
+          </form>
+  
+          <a class="edit-link" href="/collaborators/edit">Edit collaborators</a>
+        </div>
+      <% } %>
 
-        <a href="/collaborators/edit">Edit collaborators</a>
+      <% if(result.collabUsers && result.collabUsers.length != 0){ %>
+        <div class="wiki-container">
+          <h4 class="bold">Collaborators:</h5>
+  
+          <% result.collabUsers.forEach((user) => { %>
+            <p><%= user.User.name %></p>
+          <% }) %>
+  
+        </div>
       <% } %>
-      
-      <a href="/wikis">Back</a>
 
-      <% if(currentUser){ %>
-        <a href="/wikis/<%= result.wiki.id %>/edit">Edit</a>
-      <% } %>
-        
-        
-      <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(result.wiki.userId))){ %>
-        <form style="display:initial" action="/wikis/<%= result.wiki.id %>/destroy" method="post">
-          <button type="submit">Delete</button>
-        </form>
-      <% } %>
+      <div class="wiki-container flex-row">
+        <% if(currentUser){ %>
+          <a class="edit-link" href="/wikis/<%= result.wiki.id %>/edit">Edit wiki</a>
+        <% } %>
           
-      <p><%- result.wiki.body %></p>
+          
+        <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(result.wiki.userId))){ %>
+          <form style="display:initial" action="/wikis/<%= result.wiki.id %>/destroy" method="post">
+            <button class="edit-wiki-button" type="submit">Delete wiki</button>
+          </form>
+          <% } %>
+      </div>
+          
+      <div class="wiki-content-container">
+        <p><%- result.wiki.body %></p>
+      </div>
     </main>
   </body>
 </html>
