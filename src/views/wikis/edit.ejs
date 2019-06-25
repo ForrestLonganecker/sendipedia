@@ -6,26 +6,24 @@
 
   <body>
     <% include ../static/partials/navbar.ejs %>
-    <% include ../static/partials/userCard.ejs %>
-
 
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
 
-      <h1>Edit Wiki</h1>
+      <div class="show-wiki-title">
+        <h1 class="bold">Edit Wiki</h1>
+  
+        <a class="standard-link" href="/wikis/<%= result.wiki.id %>">Back</a>
+      </div>
 
-      <a href="/wikis/<%= result.wiki.id %>">Back</a>
-
-      <form action="/wikis/<%= result.wiki.id %>/update" method="post">
-        <div>
-          <label for="title">Wiki title</label>
-          <input value="<%= result.wiki.title %>" type="text" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
+      <form class="wiki-container new-wiki-form" action="/wikis/<%= result.wiki.id %>/update" method="post">
+        <label class="wiki-input-label bold" for="title">Wiki title</label>
+        <div class="wiki-input-container">
+          <input class="new-wiki-input" value="<%= result.wiki.title %>" type="text" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
         </div>  
-        <div>
-          <label for="body">Wiki body</label>
-          <textarea rows="4" name="body" aria-describedby="bodyHelp" placeholder="Enter Body"><%= result.wiki.body %></textarea>
-        </div>  
-        <button type="submit">Update</button>
+        <label class="wiki-input-label bold" for="body">Wiki body</label>
+        <textarea class="new-wiki-textarea" rows="4" name="body" aria-describedby="bodyHelp" placeholder="Enter Body"><%= result.wiki.body %></textarea>
+        <button class="standard-button" type="submit">Update</button>
       </form>
 
     </main>
