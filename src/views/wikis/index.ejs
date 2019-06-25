@@ -6,48 +6,54 @@
 
   <body>
     <% include ../static/partials/navbar.ejs %>
-    <% include ../static/partials/userCard.ejs %>
-
 
     <main class="main-container">
       <% include ../static/partials/messages.ejs %>
-
-      <h1>Public wikis</h1>
-
-        <% if(currentUser) { %>
-          <a href="/wikis/new">New</a>
-        <% } %>
-
-      <ul>
-        <% result.publicWikis.forEach((wiki) => { %>
-          <li>
-            <a href="/wikis/<%= wiki.id%>"><%= wiki.title %></a>
-          </li>
-        <% }) %>
-      </ul>
-
-      <% if(currentUser && result.privateWikis.length != 0){ %>
-        <h1>Private wikis</h1>
+      <div class="wiki-index-container">
+        <div class="public-new-container">
+          <h3 class="bold">Public wikis</h3>
   
-        <ul>
-          <% result.privateWikis.forEach((wiki) => { %>
-            <li>
-              <a href="/wikis/<%= wiki.id%>"><%= wiki.title %></a>
+          <% if(currentUser) { %>
+            <a class="standard-link" href="/wikis/new">New</a>
+          <% } %>
+        </div>
+
+        <ul class="wiki-list">
+          <% result.publicWikis.forEach((wiki) => { %>
+            <li class="wiki-list-item">
+              <a class="wiki-link" href="/wikis/<%= wiki.id%>"><%= wiki.title %></a>
             </li>
           <% }) %>
         </ul>
+    </div>
+
+
+      <% if(currentUser && result.privateWikis.length != 0){ %>
+        <div class="wiki-index-container">
+          <h3 class="bold">Private wikis</h3>
+    
+          <ul class="wiki-list">
+            <% result.privateWikis.forEach((wiki) => { %>
+              <li class="wiki-list-item">
+                <a class="wiki-link" href="/wikis/<%= wiki.id%>"><%= wiki.title %></a>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
       <% } %>
 
       <% if(currentUser && result.collabWikis.length != 0){ %>
-        <h1>Collaborative wikis</h1>
-
-        <ul>
-          <% result.collabWikis.forEach((wiki) => { %>
-            <li>
-              <a href="/wikis/<%= wiki.wikiId%>"><%= wiki.Wiki.title %></a>
-            </li>
-          <% }) %>
-        </ul>
+        <div class="wiki-index-container">
+          <h3 class="bold">Collaborative wikis</h3>
+  
+          <ul class="wiki-list">
+            <% result.collabWikis.forEach((wiki) => { %>
+              <li class="wiki-list-item">
+                <a class="wiki-link" href="/wikis/<%= wiki.wikiId%>"><%= wiki.Wiki.title %></a>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
       <% } %> 
       
     </main>

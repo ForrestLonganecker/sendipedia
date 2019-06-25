@@ -11,9 +11,9 @@
 
       <!-- <aside class="user-info">
         <% include ./partials/userCard.ejs %>
-        <% include ./partials/messages.ejs %>
       </aside> -->
-
+      <% include ./partials/messages.ejs %>
+      
       <main class="main-container">
 
         <div class="options-title-container">
@@ -21,11 +21,11 @@
           <p>The place to document mountains and rocks, anything climbing.</p>
           <div class="landing-options-container">
             <% if(currentUser) { %>   
-              <a class="landing-link" href="/users/<%= currentUser.id %>">Account</a>
-              <a class="landing-link" href="/users/signout">Sign out</a>
+              <a class="standard-link" href="/users/<%= currentUser.id %>">Account</a>
+              <a class="standard-link" href="/users/signout">Sign out</a>
             <% } else { %>
-              <a class="landing-link" href="/users/signup">Sign up</a>
-              <a class="landing-link" href="/users/signin">Sign in</a>
+              <a class="standard-link" href="/users/signup">Sign up</a>
+              <a class="standard-link" href="/users/signin">Sign in</a>
             <% } %>
           </div>
         </div>

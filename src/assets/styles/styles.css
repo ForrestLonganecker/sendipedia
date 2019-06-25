@@ -100,7 +100,7 @@ body {
   background-color: beige;
 }
 
-.landing-link {
+.standard-link {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,13 +111,13 @@ body {
   margin: 3px;
 }
 
-.landing-link:link, .landing-link:visited {
+.standard-link:link, .standard-link:visited {
   text-decoration: none;
   color: white;
   background-color: rgb(0, 122, 0);
 }
 
-.landing-link:hover, .landing-link:active {
+.standard-link:hover, .standard-link:active {
   color: black;
   border: solid;
   background-color: rgb(152, 194, 248);
@@ -126,10 +126,65 @@ body {
 .landing-content-container {
   margin: auto;
   border: solid 2px;
+  width: 99.5%;
+  padding: 3px;
+  background-color: beige;
+  margin-bottom: 10px;
+}
+
+.wiki-index-container {
+  margin: auto;
+  border: solid 2px;
   width: 99%;
   padding: 3px;
   background-color: beige;
   margin-bottom: 10px;
+}
+
+.public-new-container {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wiki-list {
+  overflow-y: scroll;
+  max-width: 90%;
+  max-height: 175px;
+  border: solid 2px rgb(0, 122, 0);
+  margin: auto;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.wiki-list-item {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+
+.wiki-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  padding: 7px;
+  height: 30px;
+  width: 93%;
+  margin: 3px;
+}
+
+.wiki-link:link, .wiki-link:visited {
+  text-decoration: none;
+  color: white;
+  background-color: rgb(0, 122, 0);
+}
+
+.wiki-link:hover, .wiki-link:active {
+  color: black;
+  border: solid;
+  background-color: rgb(152, 194, 248);
 }
 
 /* .wrapper-container {
