@@ -1,6 +1,6 @@
 <% if(currentUser) { %>
-  <div>
-    <h4>User name: <%= currentUser.name %></h4>
-    <h5>User role: <%= currentUser.role %></h5>
+  <div class="user-card-container">
+    <p class="user-greeting" >Welcome, <%= currentUser.name %>!</p>
+    <p class="user-role">Account type: <%= currentUser.role %></p>
   </div>
 <% } %>

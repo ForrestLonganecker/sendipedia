@@ -6,6 +6,7 @@ body {
 
 .nav-container {
   margin: auto;
+  margin-bottom: 5px;
   max-width: 90%;
   border: 2px solid rgb(0, 122, 0);
   background-color: beige;
@@ -56,12 +57,39 @@ body {
 .nav-link:link, .nav-link:visited {
   text-decoration: none;
   color: white;
-  background-color: rgb(0, 122, 0)
+  background-color: rgb(0, 122, 0);
 }
 
 .nav-link:hover, .nav-link:active {
   color: black;
   background-color: rgb(152, 194, 248);
+}
+
+.wrapper-container {
+  display: flex;
+}
+
+.user-info {
+  /* border-right: solid rgb(0, 122, 0) 2px;; */
+  width: 30%;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.user-card-container {
+  padding: 5px;
+}
+
+.user-card-container > p {
+  border: solid rgb(0, 122, 0) 2px;
+  padding: 3px;
+  background-color: beige;
+}
+
+
+.main-container {
+  text-align: center;
+  padding: 5px;
 }
 
 /* * {

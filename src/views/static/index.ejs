@@ -4,49 +4,57 @@
     <% include ./partials/head.ejs %>
   </head>
 
-  <body class="landing-body">
+  <body>
     <% include ./partials/navbar.ejs %>
-    <% include ./partials/userCard.ejs %>
 
-    <main class="main-container">
-      <% include ./partials/messages.ejs %>
+    <div class="wrapper-container">
 
-      <header class="header-container">
-        <h1>~*Sendipedia*~</h1>
-        <p>The place to document mountains and rocks, anything climbing.</p>
-        <div class="sign-in-out-container">
-          <% if(currentUser) { %>   
-            <a href="/users/<%= currentUser.id %>">Account</a>
-            <a href="/users/signout">Sign out</a>
-          <% } else { %>
-            <a href="/users/signup">Sign up</a>
-            <a href="/users/signin">Sign in</a>
-          <% } %>
-        </div>
-      </header>
+      <aside class="user-info">
+        <% include ./partials/userCard.ejs %>
+      </aside>
 
-      <section class="index-info-container">
-        <section>
-          <h4>Crags</h4>
-          <p>
-            Help document history and other important information about your
-            favorite crag.
-          </p>
+      <div class="line"></div>
+
+      <main class="main-container">
+        <% include ./partials/messages.ejs %>
+
+        <header class="header-container">
+          <h1>~*Sendipedia*~</h1>
+          <p>The place to document mountains and rocks, anything climbing.</p>
+          <div class="sign-in-out-container">
+            <% if(currentUser) { %>   
+              <a href="/users/<%= currentUser.id %>">Account</a>
+              <a href="/users/signout">Sign out</a>
+            <% } else { %>
+              <a href="/users/signup">Sign up</a>
+              <a href="/users/signin">Sign in</a>
+            <% } %>
+          </div>
+        </header>
+
+        <section class="index-info-container">
+          <section>
+            <h4>Crags</h4>
+            <p>
+              Help document history and other important information about your
+              favorite crag.
+            </p>
+          </section>
+
+          <section>
+            <h4>Sends</h4>
+            <p>Proud of your send last week? So are we, share the stoke!</p>
+          </section>
+
+          <section>
+            <h4>Conservation</h4>
+            <p>
+              Help us keep the places we love open for everyone. Trail work to
+              activism, spread the word.
+            </p>
+          </section>
         </section>
-
-        <section>
-          <h4>Sends</h4>
-          <p>Proud of your send last week? So are we, share the stoke!</p>
-        </section>
-
-        <section>
-          <h4>Conservation</h4>
-          <p>
-            Help us keep the places we love open for everyone. Trail work to
-            activism, spread the word.
-          </p>
-        </section>
-      </section>
-    </main>
+      </main>
+    </div>
   </body>
 </html>
