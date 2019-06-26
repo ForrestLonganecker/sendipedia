@@ -354,3 +354,16 @@ body {
 .extra-margin-bot {
   margin-bottom: 20px;
 }
+
+.user-card-container {
+  margin: auto;
+  width: 90%;
+  background-color: beige;
+  margin-bottom: 10px;
+}
+
+.edit-account-link {
+  margin: auto;
+  margin-bottom: 15px;
+  width: 40%;
+}

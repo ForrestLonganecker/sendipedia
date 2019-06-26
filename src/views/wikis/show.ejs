@@ -37,18 +37,20 @@
         </div>
       <% } %>
 
-      <div class="wiki-container flex-row">
-        <% if(currentUser){ %>
-          <a class="edit-link" href="/wikis/<%= result.wiki.id %>/edit">Edit wiki</a>
-        <% } %>
-          
-          
-        <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(result.wiki.userId))){ %>
-          <form style="display:initial" action="/wikis/<%= result.wiki.id %>/destroy" method="post">
-            <button class="edit-wiki-button" type="submit">Delete wiki</button>
-          </form>
+      <% if(currentUser) { %>
+        <div class="wiki-container flex-row">
+          <% if(currentUser){ %>
+            <a class="edit-link" href="/wikis/<%= result.wiki.id %>/edit">Edit wiki</a>
           <% } %>
-      </div>
+            
+            
+          <% if(currentUser && (currentUser.isAdmin() || currentUser.isOwner(result.wiki.userId))){ %>
+            <form style="display:initial" action="/wikis/<%= result.wiki.id %>/destroy" method="post">
+              <button class="edit-wiki-button" type="submit">Delete wiki</button>
+            </form>
+            <% } %>
+        </div>
+      <% } %>
           
       <div class="wiki-content-container">
         <p><%- result.wiki.body %></p>

@@ -7,52 +7,46 @@
   <body>
     <% include ./partials/navbar.ejs %>
 
-    <!-- <div class="wrapper-container"> -->
+    <% include ./partials/messages.ejs %>
+    
+    <main class="main-container">
 
-      <!-- <aside class="user-info">
-        <% include ./partials/userCard.ejs %>
-      </aside> -->
-      <% include ./partials/messages.ejs %>
-      
-      <main class="main-container">
-
-        <div class="options-title-container">
-          <p class="bold">Sendipedia</p>
-          <p>The place to document mountains and rocks, anything climbing.</p>
-          <div class="landing-options-container">
-            <% if(currentUser) { %>   
-              <a class="standard-link" href="/users/<%= currentUser.id %>">Account</a>
-              <a class="standard-link" href="/users/signout">Sign out</a>
-            <% } else { %>
-              <a class="standard-link" href="/users/signup">Sign up</a>
-              <a class="standard-link" href="/users/signin">Sign in</a>
-            <% } %>
-          </div>
+      <div class="options-title-container">
+        <p class="bold">Sendipedia</p>
+        <p>The place to document mountains and rocks, anything climbing.</p>
+        <div class="landing-options-container">
+          <% if(currentUser) { %>   
+            <a class="standard-link" href="/users/<%= currentUser.id %>">Account</a>
+            <a class="standard-link" href="/users/signout">Sign out</a>
+          <% } else { %>
+            <a class="standard-link" href="/users/signup">Sign up</a>
+            <a class="standard-link" href="/users/signin">Sign in</a>
+          <% } %>
         </div>
+      </div>
 
-        <section class="landing-content-wrapper">
-          <section class="landing-content-container">
-            <p class="bold">Crags</p>
-            <p>
-              Help document history and other important information about your
-              favorite crag.
-            </p>
-          </section>
-
-          <section class="landing-content-container">
-            <p class="bold">Sends</p>
-            <p>Proud of your send last week? So are we, share the stoke!</p>
-          </section>
-
-          <section class="landing-content-container">
-            <p class="bold">Conservation</p>
-            <p>
-              Help us keep the places we love open for everyone. Trail work to
-              activism, spread the word.
-            </p>
-          </section>
+      <section class="landing-content-wrapper">
+        <section class="landing-content-container">
+          <p class="bold">Crags</p>
+          <p>
+            Help document history and other important information about your
+            favorite crag.
+          </p>
         </section>
-      </main>
-    <!-- </div> -->
+
+        <section class="landing-content-container">
+          <p class="bold">Sends</p>
+          <p>Proud of your send last week? So are we, share the stoke!</p>
+        </section>
+
+        <section class="landing-content-container">
+          <p class="bold">Conservation</p>
+          <p>
+            Help us keep the places we love open for everyone. Trail work to
+            activism, spread the word.
+          </p>
+        </section>
+      </section>
+    </main>
   </body>
 </html>
