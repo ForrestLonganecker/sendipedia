@@ -396,3 +396,24 @@ body {
   padding: 3px;
   background-color: beige;
 }
+
+.sign-in-container {
+  border: solid 2px;
+  margin: auto;
+  width: 100%;
+  background-color: beige;
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: auto;
+  height: 300px;
+  width: 80%;
+}
+
+.sign-in-button {
+  margin: 20px;
+}
