@@ -67,6 +67,7 @@ body {
 .nav-link:hover, .nav-link:active {
   color: black;
   background-color: rgb(152, 194, 248);
+  border: 2px solid black;
 }
 
 .main-container {
@@ -146,7 +147,7 @@ body {
 .public-new-container {
   margin: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -315,7 +316,7 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 3px;
-  padding: 5px;
+  padding: 8px;
   height: 30px;
   margin: 3px;
   background-color: rgb(0, 122, 0);
@@ -366,4 +367,32 @@ body {
   margin: auto;
   margin-bottom: 15px;
   width: 40%;
+}
+
+.downgrade-form {
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  justify-content: space-evenly;
+}
+
+.downgrade-form > label {
+  margin-top: 10px;
+}
+
+.downgrade-button {
+  height: 50px;
+}
+
+.standard-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+  margin: auto;
+  border: solid 2px;
+  width: 99%;
+  padding: 3px;
+  background-color: beige;
 }

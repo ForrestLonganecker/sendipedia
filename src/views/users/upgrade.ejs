@@ -6,43 +6,43 @@
   <body>
 
     <% include ../static/partials/navbar.ejs %>
-    <% include ../static/partials/userCard.ejs %>
-
-
-    <main>
-
+    
+    
+    <main class="main-container">
       <% include ../static/partials/messages.ejs %>
+      <div class="wiki-container">
+        <% include ../static/partials/userCard.ejs %>
+      </div>
 
       <% if(currentUser.role == 'standard'){ %>
-        <h1>Upgrade to a Premium account</h1>
-        <h2>Start creating your own private wikis</h2>
+        <div class="wiki-container">
+          <h3 class="bold">Upgrade to a Premium account</h3>
+          <h4>Start creating your own private wikis today!</h4>
+        </div>
   
-        <h1><%= currentUser.name %></h1>
-
-        <form action="/users/<%= currentUser.id %>/charge" method="post" id="payment-form">
+        <form class="standard-container" action="/users/<%= currentUser.id %>/charge" method="post" id="payment-form">
           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
               data-key="pk_test_qmmuxmoMEcZIQUUzZTiRIi4J00cpE5u86x"
               data-amount="1500" 
-              data-name="Demo Site" 
+              data-name="Sendipedia" 
               data-description="Premium membership upgrade" 
               data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
               data-locale="auto">
           </script>
         </form>
       <% } else if(currentUser.role == 'premium'){ %>
-        <h1>Downgrade your account to Standard</h1>
-        <h2>WARNING: all private wikis will become public if you demote your account!</h2>
+        <div class="wiki-container">
+          <h3 class="bold">Downgrade your account to Standard?</h3>
+          <h4 class="bold">WARNING: all private wikis will become public if you demote your account!</h4>
+        </div>
   
-        <form action="/users/demote" method="post">
-  
-          <div>
-            <label for="standard">Are you sure you want to downgrade?</label>
-            <button type="submit">Downgrade account</button>
-          </div>
-  
+        <form class="wiki-container downgrade-form" action="/users/demote" method="post">
+          <label class="bold" for="standard">Are you sure you want to downgrade?</label>
+          <button class="standard-button downgrade-button" type="submit">Downgrade account</button> 
         </form>
       <% } else if(currentUser.role == 'admin'){ %>
-        <h1>Edit User account features</h1>
+        <h3 class="wiki-container bold">Edit User account features</h3>
+        <p class="wiki-container">More features soon to come!</p>
         <!-- admin logic here -->
       <% } else { %>
         <p> Oops, something went wrong. Are you signed in?</p>
