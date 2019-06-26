@@ -210,6 +210,8 @@ body {
 
 .new-wiki-input {
   width: 70%;
+  border: solid rgb(0, 122, 0) 2px;
+  padding: 5px;
 }
 
 .new-wiki-input::placeholder {
@@ -234,6 +236,8 @@ body {
   width: 60%;
   height: 150px;
   resize: none;
+  border: solid rgb(0, 122, 0) 2px;
+  padding: 5px;
 }
 
 .new-wiki-textarea::placeholder {
