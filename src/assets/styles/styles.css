@@ -417,3 +417,38 @@ body {
 .sign-in-button {
   margin: 20px;
 }
+
+.sign-in-form > input {
+  padding: 5px;
+  font-size: 16px;
+  border: solid rgb(0, 122, 0) 2px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.sign-in-form > input::placeholder {
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+}
+
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: auto;
+  height: 400px;
+  width: 80%;
+}
+
+.sign-up-form > input {
+  padding: 5px;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+  border: solid rgb(0, 122, 0) 2px;
+}
+
+.sign-up-form > input::placeholder {
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+}
+

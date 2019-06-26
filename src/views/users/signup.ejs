@@ -4,35 +4,31 @@
     <% include ../static/partials/head.ejs %>
   </head>
   <body>
-
     <% include ../static/partials/navbar.ejs %>
-    <% include ../static/partials/userCard.ejs %>
 
-    <main>
-
+    <main class="main-container">
       <% include ../static/partials/messages.ejs %>
 
-      <h1>Sign up</h1>
+      <div class="sign-in-container">
+        <h2 class="bold">Sign up</h2>
+  
+        <form class="sign-up-form" method="POST" action="/users">
 
-      <form method="POST" action="/users">
-        <div>
-            <label for="name">Name:</label>
+            <label class="bold" for="name">Name:</label>
             <input type="text" name="name" placeholder="Enter Name" />
-        </div>
-        <div>
-            <label for="email">Email:</label>
+
+            <label class="bold" for="email">Email:</label>
             <input type="email" name="email" placeholder="Enter Email" />
-        </div>
-        <div>
-            <label for="password">Password:</label>
+
+            <label class="bold" for="password">Password:</label>
             <input type="password" name="password" placeholder="Enter Password" />
-        </div>
-        <div>
-            <label for="passwordConfirmation">Confirm Password:</label>
+
+            <label class="bold" for="passwordConfirmation">Confirm Password:</label>
             <input type="password" name="passwordConfirmation" placeholder="Confirm Password" />
-        </div><br />
-        <button type="submit" >Sign up</button>
-    </form>
+
+          <button class="standard-button sign-in-button" type="submit" >Sign up</button>
+      </form>
+      </div>
 
     </main>
   </body>
