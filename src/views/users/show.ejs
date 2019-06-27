@@ -39,7 +39,7 @@
           <ul class="wiki-list">
             <% result.collabWikis.forEach((collabWiki) => { %>
               <li class="wiki-list-item">
-                <a class="wiki-link" href="/wikis/<%= collabWiki.wikiId%>"><%= collabWiki.title %></a>
+                <a class="wiki-link" href="/wikis/<%= collabWiki.Wiki.id%>"><%= collabWiki.Wiki.title %></a>
               </li>
             <% }) %>
           </ul>
