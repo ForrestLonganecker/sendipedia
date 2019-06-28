@@ -41,6 +41,6 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.5.0",
     "sequelize-cli": "^5.5.0",
-    "stripe": "^6.31.0"
+    "stripe": "^7.4.0"
   }
 }
