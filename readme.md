@@ -2,9 +2,7 @@
 
 ---
 
-To run:
-
-- Clone the repo
+__Clone the repo__
 
 ---
 
@@ -57,7 +55,9 @@ Bootstrap the database:
 
 ---
 
-To run:
+__To run app:__
+
+navigate to home directory and run command:
 
 - `$ npm start`
 
