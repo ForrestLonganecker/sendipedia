@@ -1,5 +1,9 @@
 ## Welocome to my wiki app!
 
+_If you would like to see the deployed version please follow the link below_  
+
+[Sendipedia demo](https://forrestlonganecker-sendipedia.herokuapp.com/)
+
 ---
 
 __First clone the repo__
