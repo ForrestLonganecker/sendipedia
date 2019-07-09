@@ -39,10 +39,10 @@ create a `.env` file in the root-directory of the app:
 Add secrets to that file:
 
 
-`cookieSecret="something you want here (nothing specific needed)"`
-`stripeTestKey="your test key goes here"`
-`stripeSecretKey="your secret key goes here"`
-`SENDGRID_API_KEY="your API key goes here"`
+`cookieSecret="something you want here (nothing specific needed)"`  
+`stripeTestKey="your test key goes here"`  
+`stripeSecretKey="your secret key goes here"`  
+`SENDGRID_API_KEY="your API key goes here"`  
 
 ---
 
