@@ -153,7 +153,7 @@ describe('routes : users', () => {
     });
 
     describe('POST /users/:id/charge', () => {
-      fit('should charge, upgrade and redirect to account page', () => {
+      it('should charge, upgrade and redirect to account page', () => {
         request.post(`${base}${this.activeUser.id}/charge`, (err, res, body) => {
           expect(err).toBeNull();
           expect(body).toContain('premium');
