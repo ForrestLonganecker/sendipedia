@@ -2,7 +2,7 @@
 
 ---
 
-__Clone the repo__
+__First clone the repo__
 
 ---
 
