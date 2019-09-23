@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ForrestLonganecker/sendipedia#readme",
   "devDependencies": {
     "faker": "^4.1.0",
-    "jasmine": "^3.4.0",
+    "jasmine": "^3.5.0",
     "request": "^2.88.0"
   },
   "dependencies": {
